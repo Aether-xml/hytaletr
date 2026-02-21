@@ -224,6 +224,41 @@
         }
 
         /* scan overlay removed */
+
+        /* Auth Modal */
+        .auth-input-error {
+            border-color: rgba(239, 68, 68, 0.5) !important;
+            background: rgba(239, 68, 68, 0.05) !important;
+        }
+        .auth-input-error + .error-msg,
+        .error-msg.visible {
+            display: block;
+        }
+        .error-msg {
+            display: none;
+            color: #ef4444;
+            font-size: 11px;
+            margin-top: 4px;
+            margin-left: 4px;
+        }
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            50% { transform: translateX(8px); }
+            75% { transform: translateX(-4px); }
+        }
+
+        /* Checkbox fix */
+        input[type="checkbox"]:checked + div {
+            background: #8b5cf6;
+            border-color: #8b5cf6;
+        }
+        input[type="checkbox"]:checked + div svg {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="font-sans">
@@ -235,10 +270,10 @@
 
     <!-- Navigation -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
-        <div class="max-w-7xl mx-auto px-6 py-4">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 py-3 sm:py-4">
             <div class="glass-strong rounded-2xl px-4 sm:px-6 py-3 flex items-center justify-between">
                 <!-- Logo -->
-                <a href="#" class="flex items-center gap-3 group">
+                <a href="#hero" class="flex items-center gap-3 group">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center font-bold text-white text-lg transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
                         P
                     </div>
@@ -259,11 +294,15 @@
                 </div>
 
                 <!-- CTA & Mobile Menu -->
-                <div class="flex items-center gap-3">
-                    <a href="https://youtube.com/@ytpavlov" target="_blank" class="hidden sm:flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold hover:shadow-lg hover:shadow-neon-purple/25 transform hover:scale-105 transition-all duration-300">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        Abone Ol
-                    </a>
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button onclick="openAuthModal('login')" class="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
+                        Giriş
+                    </button>
+                    <button onclick="openAuthModal('signup')" class="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold hover:shadow-lg hover:shadow-neon-purple/25 transform hover:scale-105 transition-all duration-300">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/></svg>
+                        Kayıt Ol
+                    </button>
                     <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors" onclick="toggleMobileMenu()">
                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
@@ -276,11 +315,15 @@
                 <a href="#games" class="block px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" onclick="closeMobileMenu()">Projeler</a>
                 <a href="#videos" class="block px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" onclick="closeMobileMenu()">Videolar</a>
                 <a href="#leaderboard" class="block px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" onclick="closeMobileMenu()">Sıralama</a>
-                <div class="mt-3 pt-3 border-t border-white/5">
-                    <a href="https://youtube.com/@ytpavlov" target="_blank" class="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                        YouTube'da Abone Ol
-                    </a>
+                <div class="mt-3 pt-3 border-t border-white/5 space-y-2">
+                    <button onclick="openAuthModal('login'); closeMobileMenu();" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 text-white text-sm font-medium hover:bg-white/10 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
+                        Giriş Yap
+                    </button>
+                    <button onclick="openAuthModal('signup'); closeMobileMenu();" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/></svg>
+                        Kayıt Ol
+                    </button>
                 </div>
             </div>
         </div>
@@ -295,7 +338,7 @@
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-neon-purple/[0.03] rounded-full blur-[150px]"></div>
         </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 py-32 text-center">
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 pt-28 sm:pt-32 pb-20 sm:pb-32 text-center">
             <!-- Badge -->
             <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full glass mb-8 animate-fade-in">
                 <span class="relative flex h-2.5 w-2.5"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span></span>
@@ -371,10 +414,10 @@
             <!-- Projelerimiz -->
             <div class="max-w-5xl mx-auto mb-20 animate-slide-up" style="animation-delay: 0.5s;">
                 <span class="text-[11px] text-gray-600 uppercase tracking-[0.25em] font-semibold">Ekosistem</span>
-                <h3 class="text-xl md:text-2xl font-bold text-white mt-2 mb-8">Projelerimiz</h3>
+                <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white mt-2 mb-6 sm:mb-8">Projelerimiz</h3>
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
                     <!-- PavMC -->
-                    <a href="#" class="group glass rounded-2xl p-4 sm:p-5 text-center hover:bg-white/[0.04] transition-all duration-300 hover:border-emerald-500/20">
+                    <a href="#" class="group glass rounded-2xl p-4 sm:p-5 text-center hover:bg-white/[0.04] transition-all duration-300 hover:border-emerald-500/20 relative overflow-hidden">
                         <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 7.5l-9-5.25L3 7.5m18 0l-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9"/></svg>
                         </div>
@@ -420,7 +463,7 @@
                         </div>
                     </a>
                     <!-- Instagram -->
-                    <a href="#" target="_blank" class="group glass rounded-2xl p-4 sm:p-5 text-center hover:bg-white/[0.04] transition-all duration-300 hover:border-pink-500/20 col-span-2 sm:col-span-1">
+                    <a href="#" target="_blank" class="group glass rounded-2xl p-4 sm:p-5 text-center hover:bg-white/[0.04] transition-all duration-300 hover:border-pink-500/20 relative overflow-hidden col-span-2 sm:col-span-1">
                         <div class="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
                             <svg class="w-6 h-6 text-pink-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                         </div>
@@ -434,22 +477,22 @@
             </div>
 
             <!-- Stats Bar -->
-            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 animate-slide-up" style="animation-delay: 0.6s;">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-0 sm:flex sm:flex-wrap sm:items-center sm:justify-center md:gap-16 animate-slide-up" style="animation-delay: 0.6s;">
                 <div class="text-center">
                     <div class="text-2xl md:text-3xl font-extrabold text-white" id="stat-subs">0</div>
                     <div class="text-[11px] text-gray-600 uppercase tracking-wider mt-1">Abone</div>
                 </div>
-                <div class="w-px h-8 bg-white/5 hidden md:block"></div>
+                <div class="w-px h-8 bg-white/5 hidden sm:block"></div>
                 <div class="text-center">
                     <div class="text-2xl md:text-3xl font-extrabold text-white" id="stat-players">0</div>
                     <div class="text-[11px] text-gray-600 uppercase tracking-wider mt-1">Oyuncu</div>
                 </div>
-                <div class="w-px h-8 bg-white/5 hidden md:block"></div>
+                <div class="w-px h-8 bg-white/5 hidden sm:block"></div>
                 <div class="text-center">
                     <div class="text-2xl md:text-3xl font-extrabold text-white" id="stat-matches">0</div>
                     <div class="text-[11px] text-gray-600 uppercase tracking-wider mt-1">Maç</div>
                 </div>
-                <div class="w-px h-8 bg-white/5 hidden md:block"></div>
+                <div class="w-px h-8 bg-white/5 hidden sm:block"></div>
                 <div class="text-center">
                     <div class="text-2xl md:text-3xl font-extrabold text-white" id="stat-videos">0</div>
                     <div class="text-[11px] text-gray-600 uppercase tracking-wider mt-1">Video</div>
@@ -470,7 +513,7 @@
         <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
         <div class="absolute top-1/2 right-0 w-72 h-72 bg-neon-purple/5 rounded-full blur-[100px]"></div>
 
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
             <!-- Section Header -->
             <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16">
                 <div>
@@ -487,7 +530,7 @@
             </div>
 
             <!-- Video Grid -->
-            <div id="video-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="video-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                 <!-- Videos will be injected via JS -->
             </div>
         </div>
@@ -499,7 +542,7 @@
         <div class="absolute top-1/3 left-0 w-72 h-72 bg-neon-cyan/5 rounded-full blur-[100px]"></div>
         <div class="absolute bottom-1/3 right-0 w-72 h-72 bg-neon-purple/5 rounded-full blur-[100px]"></div>
 
-        <div class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
             <!-- Section Header -->
             <div class="text-center mb-16">
                 <span class="text-[11px] text-neon-cyan uppercase tracking-[0.25em] font-semibold">PavRoyale</span>
@@ -520,7 +563,7 @@
             </div>
 
             <!-- Top 3 Podium -->
-            <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-12">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 max-w-4xl mx-auto mb-12">
                 <!-- 2nd Place -->
                 <div class="order-2 md:order-1 md:mt-8" id="podium-2">
                     <!-- Injected via JS -->
@@ -537,10 +580,9 @@
 
             <!-- Rest of Leaderboard -->
             <div class="max-w-3xl mx-auto">
-                <div class="glass rounded-2xl overflow-hidden">
-                    <div class="hidden sm:grid grid-cols-12 gap-4 px-6 py-3 border-b border-white/5 text-[10px] text-gray-600 uppercase tracking-wider">
-                        <div class="col-span-1">#</div>
-                        <div class="col-span-5">Oyuncu</div>
+                <div class="glass rounded-xl sm:rounded-2xl overflow-hidden">
+                    <div class="hidden sm:grid grid-cols-12 gap-4 px-4 sm:px-6 py-3 border-b border-white/5 text-[10px] text-gray-600 uppercase tracking-wider">
+                        <div class="col-span-6">Oyuncu</div>
                         <div class="col-span-2 text-center">Galibiyet</div>
                         <div class="col-span-2 text-center">K/D</div>
                         <div class="col-span-2 text-right">Skor</div>
@@ -555,7 +597,7 @@
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="relative py-10 md:py-16 border-t border-white/[0.03]">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center gap-2.5">
                     <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center font-bold text-white text-xs">P</div>
@@ -576,6 +618,140 @@
         </div>
     </footer>
 
+    <!-- ==================== AUTH MODAL ==================== -->
+    <div id="auth-overlay" class="fixed inset-0 z-[60] hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeAuthModal()"></div>
+        
+        <!-- Modal -->
+        <div class="absolute inset-0 flex items-center justify-center p-4">
+            <div id="auth-modal" class="relative w-full max-w-md animate-scale-in">
+                <div class="glass-strong rounded-3xl overflow-hidden shadow-2xl shadow-black/50">
+                    
+                    <!-- Close Button -->
+                    <button onclick="closeAuthModal()" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+
+                    <!-- Header Glow -->
+                    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-32 bg-neon-purple/10 rounded-full blur-[80px] pointer-events-none"></div>
+
+                    <div class="relative p-8">
+                        <!-- Logo -->
+                        <div class="text-center mb-8">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center font-bold text-white text-xl mx-auto mb-4">P</div>
+                            <h2 id="auth-title" class="text-2xl font-bold text-white">Giriş Yap</h2>
+                            <p id="auth-subtitle" class="text-sm text-gray-500 mt-1">Hesabınla devam et</p>
+                        </div>
+
+                        <!-- OAuth Buttons -->
+                        <div class="space-y-3 mb-6">
+                            <button onclick="mockOAuth('Google')" class="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.05] border border-white/[0.08] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all duration-300 group">
+                                <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Google ile devam et</span>
+                            </button>
+                            <button onclick="mockOAuth('Discord')" class="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-2xl bg-white/[0.05] border border-white/[0.08] hover:bg-white/[0.08] hover:border-indigo-500/20 transition-all duration-300 group">
+                                <svg class="w-5 h-5 text-indigo-400" fill="currentColor" viewBox="0 0 24 24"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z"/></svg>
+                                <span class="text-sm text-gray-300 group-hover:text-white transition-colors">Discord ile devam et</span>
+                            </button>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="flex-1 h-px bg-white/[0.06]"></div>
+                            <span class="text-[11px] text-gray-600 uppercase tracking-wider">veya</span>
+                            <div class="flex-1 h-px bg-white/[0.06]"></div>
+                        </div>
+
+                        <!-- Login Form -->
+                        <div id="login-form">
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1.5 ml-1">E-posta</label>
+                                    <input type="email" id="auth-email" placeholder="ornek@email.com" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-gray-600 outline-none focus:border-neon-purple/30 focus:bg-white/[0.06] transition-all duration-300">
+                                </div>
+                                <div>
+                                    <label class="block text-xs text-gray-500 mb-1.5 ml-1">Şifre</label>
+                                    <div class="relative">
+                                        <input type="password" id="auth-password" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-gray-600 outline-none focus:border-neon-purple/30 focus:bg-white/[0.06] transition-all duration-300 pr-12">
+                                        <button onclick="togglePasswordVisibility('auth-password', this)" type="button" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600 hover:text-gray-400 transition-colors">
+                                            <svg class="w-4.5 h-4.5 eye-off" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88"/></svg>
+                                            <svg class="w-4.5 h-4.5 eye-on hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.01 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.01-9.963-7.178z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Forgot Password (login only) -->
+                            <div id="forgot-password-link" class="text-right mt-2">
+                                <button onclick="showForgotPassword()" class="text-xs text-gray-500 hover:text-neon-purple transition-colors">Şifreni mi unuttun?</button>
+                            </div>
+                        </div>
+
+                        <!-- Signup Extra Fields (hidden by default) -->
+                        <div id="signup-extras" class="hidden space-y-4 mt-4">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1.5 ml-1">Kullanıcı Adı</label>
+                                <div class="relative">
+                                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 text-sm">@</span>
+                                    <input type="text" id="auth-username" placeholder="pavlov_pro" class="w-full pl-8 pr-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-gray-600 outline-none focus:border-neon-purple/30 focus:bg-white/[0.06] transition-all duration-300">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1.5 ml-1">Şifre Tekrar</label>
+                                <input type="password" id="auth-password-confirm" placeholder="••••••••" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-gray-600 outline-none focus:border-neon-purple/30 focus:bg-white/[0.06] transition-all duration-300">
+                            </div>
+                            <!-- Terms -->
+                            <label class="flex items-start gap-3 cursor-pointer group">
+                                <div class="relative mt-0.5">
+                                    <input type="checkbox" id="auth-terms" class="peer sr-only">
+                                    <div class="w-5 h-5 rounded-md bg-white/[0.04] border border-white/[0.1] peer-checked:bg-neon-purple peer-checked:border-neon-purple transition-all duration-200 flex items-center justify-center">
+                                        <svg class="w-3 h-3 text-white opacity-0 peer-checked:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                                    </div>
+                                </div>
+                                <span class="text-xs text-gray-500 leading-relaxed"><a href="#" class="text-gray-400 hover:text-neon-purple transition-colors">Kullanım şartlarını</a> ve <a href="#" class="text-gray-400 hover:text-neon-purple transition-colors">gizlilik politikasını</a> kabul ediyorum.</span>
+                            </label>
+                        </div>
+
+                        <!-- Forgot Password Form (hidden) -->
+                        <div id="forgot-form" class="hidden">
+                            <div class="text-center mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-neon-purple/10 flex items-center justify-center mx-auto mb-3">
+                                    <svg class="w-6 h-6 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+                                </div>
+                                <p class="text-sm text-gray-400">E-posta adresine şifre sıfırlama bağlantısı göndereceğiz.</p>
+                            </div>
+                            <div>
+                                <input type="email" id="forgot-email" placeholder="ornek@email.com" class="w-full px-4 py-3 rounded-xl bg-white/[0.04] border border-white/[0.08] text-sm text-white placeholder-gray-600 outline-none focus:border-neon-purple/30 focus:bg-white/[0.06] transition-all duration-300">
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button id="auth-submit-btn" onclick="handleAuthSubmit()" class="w-full mt-6 px-4 py-3.5 rounded-2xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold hover:shadow-lg hover:shadow-neon-purple/25 transform hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2">
+                            <span id="auth-btn-text">Giriş Yap</span>
+                            <div id="auth-btn-spinner" class="hidden w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                        </button>
+
+                        <!-- Toggle Login/Signup -->
+                        <p class="text-center text-sm text-gray-500 mt-6">
+                            <span id="auth-toggle-text">Hesabın yok mu?</span>
+                            <button id="auth-toggle-btn" onclick="toggleAuthMode()" class="text-neon-purple hover:text-neon-purple-light font-medium ml-1 transition-colors">Kayıt Ol</button>
+                        </p>
+
+                        <!-- Success Message (hidden) -->
+                        <div id="auth-success" class="hidden text-center py-4">
+                            <div class="w-16 h-16 rounded-full bg-emerald-500/10 flex items-center justify-center mx-auto mb-4">
+                                <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <h3 id="success-title" class="text-lg font-bold text-white mb-1">Hoş geldin!</h3>
+                            <p id="success-text" class="text-sm text-gray-400">Başarıyla giriş yapıldı.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- ==================== CHATBOT ==================== -->
     <!-- Chat Toggle Button -->
     <button id="chat-toggle" onclick="toggleChat()" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center shadow-lg shadow-neon-purple/20 hover:shadow-neon-purple/30 transform hover:scale-105 active:scale-95 transition-all duration-300 group">
@@ -586,7 +762,7 @@
     </button>
 
     <!-- Chat Window -->
-    <div id="chat-window" class="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-32px)] sm:w-[380px] max-w-[400px] hidden">
+    <div id="chat-window" class="fixed bottom-20 sm:bottom-24 right-3 sm:right-6 z-50 w-[calc(100vw-24px)] sm:w-[380px] max-w-[400px] hidden">
         <div class="glass-strong rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl shadow-black/50 animate-scale-in flex flex-col" style="height: min(480px, calc(100vh - 140px));">
             <!-- Chat Header -->
             <div class="px-6 py-4 border-b border-white/5 flex items-center justify-between flex-shrink-0">
@@ -700,7 +876,8 @@
             'abone': '📺 Sayfadaki mor **"Abone Ol"** butonu seni direkt kanala götürür.\n\nYa da youtube.com/@ytpavlov adresinden ulaşabilirsin. Bildirimleri de açmayı unutma 🔔',
             'sıralama': '🏆 Puanlama basit:\n\n• Arena galibiyeti → **+250** puan\n• Kupa kazanma → **+50** puan\n• Sezon sonu Top 10 → **+100** bonus\n\nHaftalık ve genel sıralama ayrı tutuluyor.',
             'merhaba': 'Selam! 👋 Nasıl yardımcı olabilirim? Oyunlar, kanal veya sıralama hakkında sorabilirsin.',
-            'default': 'Bunu tam çözemedim 🤔\n\nŞunları sorabilirsin:\n• Oyunlar hakkında\n• YouTube kanalı\n• Sıralama sistemi\n• Sunucular ve projeler',
+            'default': 'Bunu tam çözemedim 🤔\n\nŞunları sorabilirsin:\n• Oyunlar hakkında\n• YouTube kanalı\n• Sıralama sistemi\n• Sunucular ve projeler\n• Kayıt ve giriş',
+            'kayit': '🔐 Sağ üstteki **"Kayıt Ol"** butonundan yeni hesap oluşturabilirsin.\n\nGoogle veya Discord hesabınla da hızlıca giriş yapabilirsin. Hesabınla sıralamaya katılıp puanlarını takip edebilirsin.',
             'sunucu': '🖥️ Aktif sunucularımız:\n\n**PavMC** — Minecraft sunucusu, survival ve minigame modları.\n**PavRoleplay** — MTA üzerinde roleplay sunucusu.\n**Discord** — 5.2K üyeli topluluk sunucumuz.\n\nHepsine ana sayfadaki Projeler bölümünden ulaşabilirsin.'
         };
 
@@ -775,8 +952,8 @@
                             <div class="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-transparent to-transparent"></div>
                             <!-- Play button overlay -->
                             <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <div class="w-14 h-14 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                                    <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 transform scale-75 group-hover:scale-100 transition-transform duration-300">
+                                    <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                                 </div>
                             </div>
                             <!-- Duration -->
@@ -826,11 +1003,11 @@
                     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-yellow-400/10 rounded-full blur-[60px]"></div>
                     <div class="relative">
                         <div class="text-3xl mb-3">👑</div>
-                        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br ${first.color} mx-auto flex items-center justify-center text-2xl font-black text-white mb-4 ring-4 ring-yellow-400/20 group-hover:ring-yellow-400/40 transition-all duration-300">
+                        <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${first.color} mx-auto flex items-center justify-center text-xl sm:text-2xl font-black text-white mb-4 ring-4 ring-yellow-400/20 group-hover:ring-yellow-400/40 transition-all duration-300">
                             ${first.avatar}
                         </div>
                         <h3 class="text-lg font-bold text-white mb-1">${first.name}</h3>
-                        <div class="text-2xl font-black gradient-text mb-4">${first.score.toLocaleString()}</div>
+                        <div class="text-xl sm:text-2xl font-black gradient-text mb-4">${first.score.toLocaleString()}</div>
                         <div class="flex items-center justify-center gap-4 text-xs text-gray-400">
                             <span class="flex items-center gap-1">
                                 <span class="text-neon-purple">⚔</span> ${first.wins}W
@@ -893,20 +1070,22 @@
             };
 
             list.innerHTML = rest.map((player, index) => `
-                <div class="grid grid-cols-12 gap-4 px-6 py-4 items-center border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-colors duration-300 group">
-                    <div class="col-span-1 flex items-center gap-2">
-                        <span class="text-sm font-mono text-gray-500">${player.rank}</span>
-                        ${changeIcons[player.change]}
-                    </div>
-                    <div class="col-span-5 flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br ${player.color} flex items-center justify-center text-xs font-bold text-white group-hover:scale-110 transition-transform duration-300">
+                <div class="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-white/5 last:border-0 hover:bg-white/[0.02] transition-colors duration-300 group sm:grid sm:grid-cols-12 sm:gap-4">
+                    <div class="flex items-center gap-3 sm:col-span-6">
+                        <div class="flex items-center gap-1.5 w-8 flex-shrink-0">
+                            <span class="text-sm text-gray-500">${player.rank}</span>
+                            ${changeIcons[player.change]}
+                        </div>
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-br ${player.color} flex items-center justify-center text-xs font-bold text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                             ${player.avatar}
                         </div>
-                        <span class="text-sm font-semibold text-white">${player.name}</span>
+                        <span class="text-sm font-semibold text-white truncate">${player.name}</span>
                     </div>
-                    <div class="col-span-2 text-center text-sm font-mono text-gray-400">${player.wins}</div>
-                    <div class="col-span-2 text-center text-sm font-mono text-gray-400">${player.kd}</div>
-                    <div class="col-span-2 text-right text-sm font-bold gradient-text">${player.score.toLocaleString()}</div>
+                    <div class="flex items-center gap-4 sm:col-span-6 sm:grid sm:grid-cols-3">
+                        <span class="hidden sm:block text-center text-sm text-gray-400">${player.wins}</span>
+                        <span class="hidden sm:block text-center text-sm text-gray-400">${player.kd}</span>
+                        <span class="text-sm font-bold gradient-text sm:text-right">${player.score.toLocaleString()}</span>
+                    </div>
                 </div>
             `).join('');
         }
@@ -917,24 +1096,16 @@
             currentTab = tab;
             const data = tab === 'weekly' ? weeklyLeaderboard : alltimeLeaderboard;
 
-            // Update tab styles
             document.querySelectorAll('.leaderboard-tab').forEach(t => {
                 t.classList.remove('active');
-                t.className = t.className.replace(/bg-gradient-to-r from-neon-purple to-neon-cyan text-white/g, '');
-                t.classList.add('text-gray-500', 'hover:text-gray-300');
+                t.style.background = 'transparent';
+                t.style.color = '#6b7280';
             });
 
             const activeTab = document.querySelector(`.leaderboard-tab[data-tab="${tab}"]`);
             activeTab.classList.add('active');
-            activeTab.classList.remove('text-gray-500', 'hover:text-gray-300');
             activeTab.style.background = 'linear-gradient(135deg, #8b5cf6, #06b6d4)';
-            activeTab.style.color = 'white';
-
-            // Update inactive tab
-            document.querySelectorAll('.leaderboard-tab:not(.active)').forEach(t => {
-                t.style.background = 'transparent';
-                t.style.color = '';
-            });
+            activeTab.style.color = '#ffffff';
 
             renderPodium(data);
             renderLeaderboardList(data);
@@ -1009,6 +1180,8 @@
                 return botResponses['merhaba'];
             } else if (msg.includes('sunucu') || msg.includes('minecraft') || msg.includes('pavmc') || msg.includes('mta') || msg.includes('roleplay') || msg.includes('discord') || msg.includes('proje') || msg.includes('instagram')) {
                 return botResponses['sunucu'];
+            } else if (msg.includes('kayıt') || msg.includes('giriş') || msg.includes('login') || msg.includes('hesap') || msg.includes('üye') || msg.includes('sign')) {
+                return botResponses['kayit'];
             }
             return botResponses['default'];
         }
@@ -1037,6 +1210,230 @@
                 addBotMessage(response);
             }, 800 + Math.random() * 700);
         }
+
+
+        // ============ AUTH MODAL ============
+
+        let authMode = 'login'; // 'login', 'signup', 'forgot'
+        let authModalOpen = false;
+
+        function openAuthModal(mode = 'login') {
+            authMode = mode;
+            authModalOpen = true;
+            document.getElementById('auth-overlay').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            updateAuthUI();
+        }
+
+        function closeAuthModal() {
+            authModalOpen = false;
+            document.getElementById('auth-overlay').classList.add('hidden');
+            document.body.style.overflow = '';
+            resetAuthForm();
+        }
+
+        function toggleAuthMode() {
+            if (authMode === 'login') {
+                authMode = 'signup';
+            } else if (authMode === 'signup') {
+                authMode = 'login';
+            } else if (authMode === 'forgot') {
+                authMode = 'login';
+            }
+            updateAuthUI();
+        }
+
+        function showForgotPassword() {
+            authMode = 'forgot';
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            const title = document.getElementById('auth-title');
+            const subtitle = document.getElementById('auth-subtitle');
+            const btnText = document.getElementById('auth-btn-text');
+            const toggleText = document.getElementById('auth-toggle-text');
+            const toggleBtn = document.getElementById('auth-toggle-btn');
+            const loginForm = document.getElementById('login-form');
+            const signupExtras = document.getElementById('signup-extras');
+            const forgotForm = document.getElementById('forgot-form');
+            const forgotLink = document.getElementById('forgot-password-link');
+            const successDiv = document.getElementById('auth-success');
+            const submitBtn = document.getElementById('auth-submit-btn');
+
+            // Reset visibility
+            loginForm.classList.remove('hidden');
+            signupExtras.classList.add('hidden');
+            forgotForm.classList.add('hidden');
+            successDiv.classList.add('hidden');
+            submitBtn.classList.remove('hidden');
+            document.querySelector('#auth-modal .space-y-3')?.classList.remove('hidden'); // OAuth buttons
+            document.querySelector('#auth-modal .flex.items-center.gap-4')?.classList.remove('hidden'); // Divider
+
+            if (authMode === 'login') {
+                title.textContent = 'Giriş Yap';
+                subtitle.textContent = 'Hesabınla devam et';
+                btnText.textContent = 'Giriş Yap';
+                toggleText.textContent = 'Hesabın yok mu?';
+                toggleBtn.textContent = 'Kayıt Ol';
+                forgotLink.classList.remove('hidden');
+            } else if (authMode === 'signup') {
+                title.textContent = 'Kayıt Ol';
+                subtitle.textContent = 'Yeni hesap oluştur';
+                btnText.textContent = 'Hesap Oluştur';
+                toggleText.textContent = 'Zaten hesabın var mı?';
+                toggleBtn.textContent = 'Giriş Yap';
+                signupExtras.classList.remove('hidden');
+                forgotLink.classList.add('hidden');
+            } else if (authMode === 'forgot') {
+                title.textContent = 'Şifre Sıfırla';
+                subtitle.textContent = 'E-posta adresini gir';
+                btnText.textContent = 'Sıfırlama Linki Gönder';
+                toggleText.textContent = 'Şifreni hatırladın mı?';
+                toggleBtn.textContent = 'Giriş Yap';
+                loginForm.classList.add('hidden');
+                forgotForm.classList.remove('hidden');
+                document.querySelector('#auth-modal .space-y-3')?.classList.add('hidden');
+                document.querySelector('#auth-modal .flex.items-center.gap-4')?.classList.add('hidden');
+            }
+
+            // Clear errors
+            clearAuthErrors();
+        }
+
+        function resetAuthForm() {
+            const inputs = document.querySelectorAll('#auth-modal input');
+            inputs.forEach(i => { i.value = ''; i.classList.remove('auth-input-error'); });
+            document.querySelectorAll('#auth-modal .error-msg').forEach(e => e.remove());
+            authMode = 'login';
+            updateAuthUI();
+
+            // Reset spinner
+            document.getElementById('auth-btn-spinner').classList.add('hidden');
+            document.getElementById('auth-btn-text').classList.remove('hidden');
+        }
+
+        function clearAuthErrors() {
+            document.querySelectorAll('#auth-modal .auth-input-error').forEach(el => el.classList.remove('auth-input-error'));
+            document.querySelectorAll('#auth-modal .error-msg').forEach(el => el.remove());
+        }
+
+        function showFieldError(inputId, message) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            input.classList.add('auth-input-error');
+            const existing = input.parentElement.querySelector('.error-msg');
+            if (existing) existing.remove();
+            const errorEl = document.createElement('p');
+            errorEl.className = 'error-msg visible';
+            errorEl.textContent = message;
+            input.parentElement.appendChild(errorEl);
+        }
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function handleAuthSubmit() {
+            clearAuthErrors();
+
+            if (authMode === 'forgot') {
+                const email = document.getElementById('forgot-email').value.trim();
+                if (!email) { showFieldError('forgot-email', 'E-posta adresi gerekli.'); shakeModal(); return; }
+                if (!validateEmail(email)) { showFieldError('forgot-email', 'Geçerli bir e-posta gir.'); shakeModal(); return; }
+                simulateLoading(() => showAuthSuccess('Bağlantı Gönderildi!', `${email} adresine sıfırlama linki gönderdik.`));
+                return;
+            }
+
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value;
+
+            if (!email) { showFieldError('auth-email', 'E-posta adresi gerekli.'); shakeModal(); return; }
+            if (!validateEmail(email)) { showFieldError('auth-email', 'Geçerli bir e-posta gir.'); shakeModal(); return; }
+            if (!password) { showFieldError('auth-password', 'Şifre gerekli.'); shakeModal(); return; }
+            if (password.length < 6) { showFieldError('auth-password', 'Şifre en az 6 karakter olmalı.'); shakeModal(); return; }
+
+            if (authMode === 'signup') {
+                const username = document.getElementById('auth-username').value.trim();
+                const confirmPass = document.getElementById('auth-password-confirm').value;
+                if (!username) { showFieldError('auth-username', 'Kullanıcı adı gerekli.'); shakeModal(); return; }
+                if (username.length < 3) { showFieldError('auth-username', 'En az 3 karakter olmalı.'); shakeModal(); return; }
+                if (password !== confirmPass) { showFieldError('auth-password-confirm', 'Şifreler eşleşmiyor.'); shakeModal(); return; }
+                const terms = document.getElementById('auth-terms');
+                if (!terms.checked) { shakeModal(); return; }
+                simulateLoading(() => showAuthSuccess(`Hoş geldin, @${username}!`, 'Hesabın başarıyla oluşturuldu.'));
+            } else {
+                simulateLoading(() => showAuthSuccess('Tekrar hoş geldin!', 'Başarıyla giriş yapıldı.'));
+            }
+        }
+
+        function simulateLoading(callback) {
+            const btn = document.getElementById('auth-submit-btn');
+            const text = document.getElementById('auth-btn-text');
+            const spinner = document.getElementById('auth-btn-spinner');
+            btn.disabled = true;
+            text.classList.add('hidden');
+            spinner.classList.remove('hidden');
+
+            setTimeout(() => {
+                btn.disabled = false;
+                text.classList.remove('hidden');
+                spinner.classList.add('hidden');
+                callback();
+            }, 1500);
+        }
+
+        function showAuthSuccess(titleText, subtitleText) {
+            document.getElementById('success-title').textContent = titleText;
+            document.getElementById('success-text').textContent = subtitleText;
+            document.getElementById('auth-success').classList.remove('hidden');
+            document.getElementById('login-form').classList.add('hidden');
+            document.getElementById('signup-extras').classList.add('hidden');
+            document.getElementById('forgot-form').classList.add('hidden');
+            document.getElementById('auth-submit-btn').classList.add('hidden');
+            document.querySelector('#auth-modal .space-y-3')?.classList.add('hidden');
+            document.querySelector('#auth-modal .flex.items-center.gap-4')?.classList.add('hidden');
+            document.getElementById('auth-title').classList.add('hidden');
+            document.getElementById('auth-subtitle').classList.add('hidden');
+            document.getElementById('forgot-password-link')?.classList.add('hidden');
+
+            // Auto close
+            setTimeout(() => {
+                closeAuthModal();
+                document.getElementById('auth-title').classList.remove('hidden');
+                document.getElementById('auth-subtitle').classList.remove('hidden');
+            }, 2500);
+        }
+
+        function mockOAuth(provider) {
+            simulateLoading(() => showAuthSuccess(`${provider} ile Bağlandı!`, `${provider} hesabınla giriş yapıldı.`));
+        }
+
+        function shakeModal() {
+            const modal = document.getElementById('auth-modal');
+            modal.classList.add('shake');
+            setTimeout(() => modal.classList.remove('shake'), 400);
+        }
+
+        function togglePasswordVisibility(inputId, btn) {
+            const input = document.getElementById(inputId);
+            const eyeOff = btn.querySelector('.eye-off');
+            const eyeOn = btn.querySelector('.eye-on');
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeOff.classList.add('hidden');
+                eyeOn.classList.remove('hidden');
+            } else {
+                input.type = 'password';
+                eyeOff.classList.remove('hidden');
+                eyeOn.classList.add('hidden');
+            }
+        }
+
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && authModalOpen) closeAuthModal();
+        });
 
 
         // ============ NAVIGATION ============
