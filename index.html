@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HytaleTR - Türkiye'nin En Büyük Hytale Topluluğu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        hytale: {
+                            primary: '#1a1a2e',
+                            secondary: '#16213e',
+                            accent: '#0f3460',
+                            gold: '#e94560',
+                            light: '#533483',
+                            cyan: '#00d2ff',
+                            orange: '#ff6b35',
+                            green: '#2ecc71',
+                            dark: '#0a0a1a',
+                            card: '#1e1e3a',
+                            border: '#2a2a4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * { font-family: 'Inter', sans-serif; }
+
+        body {
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #0a0a1a 100%);
+            min-height: 100vh;
+        }
+
+        .glass {
+            background: rgba(30, 30, 58, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .glass-strong {
+            background: rgba(30, 30, 58, 0.9);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .glow-cyan { box-shadow: 0 0 30px rgba(0, 210, 255, 0.15); }
+        .glow-gold { box-shadow: 0 0 30px rgba(233, 69, 96, 0.15); }
+        .glow-green { box-shadow: 0 0 30px rgba(46, 204, 113, 0.15); }
+
+        .text-glow-cyan { text-shadow: 0 0 20px rgba(0, 210, 255, 0.5); }
+        .text-glow-gold { text-shadow: 0 0 20px rgba(233, 69, 96, 0.5); }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #00d2ff, #e94560);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .gradient-text-gold {
+            background: linear-gradient(135deg, #ff6b35, #e94560);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, rgba(10,10,26,0.8), rgba(26,26,46,0.6)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%230f3460" fill-opacity="0.3" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e94560, #ff6b35);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.4);
+        }
+
+        .btn-cyan {
+            background: linear-gradient(135deg, #00d2ff, #0f3460);
+            transition: all 0.3s ease;
+        }
+        .btn-cyan:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 210, 255, 0.4);
+        }
+
+        .btn-green {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            transition: all 0.3s ease;
+        }
+        .btn-green:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.4);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d2ff, #e94560);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .badge-admin {
+            background: linear-gradient(135deg, #e94560, #ff6b35);
+        }
+        .badge-mod {
+            background: linear-gradient(135deg, #00d2ff, #0f3460);
+        }
+        .badge-vip {
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+        }
+        .badge-member {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+        }
+        .badge-dev {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .xp-bar {
+            background: linear-gradient(90deg, #00d2ff, #e94560);
+            transition: width 1s ease;
+        }
+
+        .scrollbar-custom::-webkit-scrollbar { width: 6px; }
+        .scrollbar-custom::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 3px; }
+        .scrollbar-custom::-webkit-scrollbar-thumb { background: rgba(0,210,255,0.3); border-radius: 3px; }
+
+        .modal-overlay {
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-size: 1.25rem;
+        }
+
+        .pulse-online {
+            animation: pulse-green 2s infinite;
+        }
+        @keyframes pulse-green {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+            50% { box-shadow: 0 0 0 8px rgba(46, 204, 113, 0); }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .typing-indicator span {
+            animation: typing 1.4s infinite;
+            display: inline-block;
+        }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+        .notification-badge {
+            animation: notification-pulse 2s infinite;
+        }
+        @keyframes notification-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .vote-btn {
+            transition: all 0.3s ease;
+        }
+        .vote-btn:hover {
+            transform: scale(1.1);
+        }
+        .vote-btn.voted {
+            color: #00d2ff;
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #00d2ff;
+            color: #00d2ff;
+        }
+
+        .star-rating i {
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .star-rating i:hover {
+            transform: scale(1.2);
+        }
+
+        .status-online { color: #2ecc71; }
+        .status-offline { color: #e74c3c; }
+        .status-away { color: #f39c12; }
+
+        .search-highlight {
+            background: rgba(0, 210, 255, 0.2);
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+        }
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .toast {
+            animation: slideInRight 0.5s ease, fadeOut 0.5s ease 2.5s forwards;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 210, 255, 0.3);
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+
+        .rich-editor {
+            min-height: 200px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            background: rgba(0,0,0,0.3);
+        }
+        .rich-editor:focus {
+            outline: none;
+            border-color: rgba(0, 210, 255, 0.5);
+        }
+
+        .file-upload-zone {
+            border: 2px dashed rgba(255,255,255,0.2);
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .file-upload-zone:hover, .file-upload-zone.dragover {
+            border-color: #00d2ff;
+            background: rgba(0, 210, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="text-gray-200 scrollbar-custom">
+
+    <!-- Particles Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="fixed top-20 right-4 z-[100] space-y-2"></div>
+
+    <!-- NAVBAR -->
+    <nav class="glass-strong fixed w-full top-0 z-50 border-b border-hytale-border">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="navigateTo('home')">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-red-500 flex items-center justify-center font-black text-white text-lg">
+                        H
+                    </div>
+                    <div>
+                        <span class="text-xl font-black gradient-text">HytaleTR</span>
+                        <span class="text-[10px] text-gray-500 block -mt-1">Türkiye Topluluğu</span>
+                    </div>
+                </div>
+
+                <!-- Nav Links (Desktop) -->
+                <div class="hidden lg:flex items-center space-x-1">
+                    <button onclick="navigateTo('home')" class="nav-link active px-4 py-2 text-sm font-medium text-gray-300 hover:text-white" data-page="home">
+                        <i class="fas fa-home mr-1"></i> Ana Sayfa
+                    </button>
+                    <button onclick="navigateTo('forum')" class="nav-link px-4 py-2 text-sm font-medium text-gray-300 hover:text-white" data-page="forum">
+                        <i class="fas fa-comments mr-1"></i> Forum
+                    </button>
+                    <button onclick="navigateTo('servers')" class="nav-link px-4 py-2 text-sm font-medium text-gray-300 hover:text-white" data-page="servers">
+                        <i class="fas fa-server mr-1"></i> Sunucular
+                    </button>
+                    <button onclick="navigateTo('resources')" class="nav-link px-4 py-2 text-sm font-medium text-gray-300 hover:text-white" data-page="resources">
+                        <i class="fas fa-puzzle-piece mr-1"></i> Kaynaklar
+                    </button>
+                    <button onclick="navigateTo('market')" class="nav-link px-4 py-2 text-sm font-medium text-gray-300 hover:text-white" data-page="market">
+                        <i class="fas fa-store mr-1"></i> Pazar Yeri
+                    </button>
+                    <div class="dropdown relative">
+                        <button class="nav-link px-4 py-2 text-sm font-medium text-gray-300 hover:text-white">
+                            <i class="fas fa-ellipsis-h mr-1"></i> Diğer
+                        </button>
+                        <div class="dropdown-menu absolute top-full left-0 mt-2 w-48 glass-strong rounded-xl overflow-hidden shadow-2xl">
+                            <button onclick="navigateTo('leaderboard')" class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition">
+                                <i class="fas fa-trophy mr-2 text-yellow-400"></i> Sıralama
+                            </button>
+                            <button onclick="navigateTo('wiki')" class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition">
+                                <i class="fas fa-book mr-2 text-blue-400"></i> Wiki
+                            </button>
+                            <button onclick="navigateTo('events')" class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition">
+                                <i class="fas fa-calendar mr-2 text-green-400"></i> Etkinlikler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side -->
+                <div class="flex items-center space-x-3">
+                    <!-- Search -->
+                    <div class="hidden md:block relative">
+                        <input type="text" placeholder="Ara..." id="globalSearch"
+                               class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm w-48 focus:w-64 transition-all focus:outline-none focus:border-cyan-500/50 text-white placeholder-gray-500"
+                               oninput="handleSearch(this.value)">
+                        <i class="fas fa-search absolute right-3 top-2.5 text-gray-500 text-sm"></i>
+                        <div id="searchResults" class="absolute top-full mt-2 w-80 glass-strong rounded-xl overflow-hidden shadow-2xl hidden"></div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="relative" id="notifArea">
+                        <button onclick="toggleNotifications()" class="relative p-2 text-gray-400 hover:text-white transition">
+                            <i class="fas fa-bell text-lg"></i>
+                            <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full text-[10px] flex items-center justify-center font-bold notification-badge" id="notifCount">3</span>
+                        </button>
+                        <div id="notifPanel" class="hidden absolute right-0 top-full mt-2 w-80 glass-strong rounded-xl overflow-hidden shadow-2xl">
+                            <div class="p-4 border-b border-white/10">
+                                <h3 class="font-bold text-white">Bildirimler</h3>
+                            </div>
+                            <div class="max-h-64 overflow-y-auto scrollbar-custom" id="notifList">
+                                <div class="p-3 hover:bg-white/5 cursor-pointer border-b border-white/5 flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-xs font-bold">A</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm"><span class="font-bold text-cyan-400">AhmetYT</span> konunuza yanıt verdi</p>
+                                        <p class="text-xs text-gray-500 mt-1">2 dakika önce</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 hover:bg-white/5 cursor-pointer border-b border-white/5 flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center text-xs font-bold">M</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm"><span class="font-bold text-green-400">ModMaster</span> kaynağınızı beğendi</p>
+                                        <p class="text-xs text-gray-500 mt-1">15 dakika önce</p>
+                                    </div>
+                                </div>
+                                <div class="p-3 hover:bg-white/5 cursor-pointer flex items-start space-x-3">
+                                    <div class="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-xs font-bold">S</div>
+                                    <div class="flex-1">
+                                        <p class="text-sm"><span class="font-bold text-yellow-400">Sistem</span> Seviye atladınız! Artık Lv.5</p>
+                                        <p class="text-xs text-gray-500 mt-1">1 saat önce</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-3 text-center border-t border-white/10">
+                                <button class="text-cyan-400 text-sm hover:underline">Tümünü Gör</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Messages -->
+                    <button onclick="toggleMessages()" class="relative p-2 text-gray-400 hover:text-white transition">
+                        <i class="fas fa-envelope text-lg"></i>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-cyan-500 rounded-full text-[10px] flex items-center justify-center font-bold">2</span>
+                    </button>
+
+                    <!-- User Menu (Logged In) -->
+                    <div class="dropdown relative" id="userMenu">
+                        <button class="flex items-center space-x-2 p-1 rounded-xl hover:bg-white/5 transition">
+                            <div class="relative">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-sm text-white">HT</div>
+                                <div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-hytale-primary pulse-online"></div>
+                            </div>
+                            <span class="hidden md:block text-sm font-medium text-white">HytaleTR_Admin</span>
+                            <i class="fas fa-chevron-down text-xs text-gray-500 hidden md:block"></i>
+                        </button>
+                        <div class="dropdown-menu absolute right-0 top-full mt-2 w-64 glass-strong rounded-xl overflow-hidden shadow-2xl">
+                            <div class="p-4 border-b border-white/10">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center font-bold text-lg text-white">HT</div>
+                                    <div>
+                                        <p class="font-bold text-white">HytaleTR_Admin</p>
+                                        <span class="text-xs px-2 py-0.5 rounded-full badge-admin text-white">Admin</span>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <div class="flex justify-between text-xs mb-1">
+                                        <span class="text-gray-400">Seviye 15</span>
+                                        <span class="text-cyan-400">2,450 / 3,000 XP</span>
+                                    </div>
+                                    <div class="w-full bg-white/10 rounded-full h-1.5">
+                                        <div class="xp-bar h-1.5 rounded-full" style="width: 82%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="navigateTo('profile')" class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition">
+                                <i class="fas fa-user mr-3 text-cyan-400"></i> Profilim
+                            </button>
+                            <button onclick="navigateTo('messages')" class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition">
+                                <i class="fas fa-envelope mr-3 text-green-400"></i> Mesajlarım <span class="ml-2 text-xs bg-cyan-500/20 text-cyan-400 px-2 py-0.5 rounded-full">2</span>
+                            </button>
+                            <button onclick="navigateTo('settings')" class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition">
+                                <i class="fas fa-cog mr-3 text-gray-400"></i> Ayarlar
+                            </button>
+                            <button onclick="navigateTo('admin')" class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition border-t border-white/5">
+                                <i class="fas fa-shield-alt mr-3 text-red-400"></i> Admin Panel
+                            </button>
+                            <button class="block w-full text-left px-4 py-3 text-sm hover:bg-white/5 transition text-red-400 border-t border-white/5">
+                                <i class="fas fa-sign-out-alt mr-3"></i> Çıkış Yap
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button onclick="toggleMobileMenu()" class="lg:hidden p-2 text-gray-400 hover:text-white">
+                        <i class="fas fa-bars text-lg"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden lg:hidden border-t border-white/10 pb-4">
+            <div class="px-4 pt-3 space-y-1">
+                <button onclick="navigateTo('home')" class="block w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-white/5"><i class="fas fa-home mr-3"></i>Ana Sayfa</button>
+                <button onclick="navigateTo('forum')" class="block w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-white/5"><i class="fas fa-comments mr-3"></i>Forum</button>
+                <button onclick="navigateTo('servers')" class="block w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-white/5"><i class="fas fa-server mr-3"></i>Sunucular</button>
+                <button onclick="navigateTo('resources')" class="block w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-white/5"><i class="fas fa-puzzle-piece mr-3"></i>Kaynaklar</button>
+                <button onclick="navigateTo('market')" class="block w-full text-left px-4 py-3 rounded-xl text-sm hover:bg-white/5"><i class="fas fa-store mr-3"></i>Pazar Yeri</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="pt-16 relative z-10">
+
+        <!-- ==================== HOME PAGE ==================== -->
+        <div id="page-home" class="page-content">
+            <!-- Hero Section -->
+            <section class="hero-bg relative overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 py-20 relative z-10">
+                    <div class="text-center">
+                        <div class="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-4 py-2 mb-6">
+                            <span class="w-2 h-2 bg-green-400 rounded-full pulse-online"></span>
+                            <span class="text-sm text-gray-400"><span class="text-green-400 font-bold" id="onlineCount">1,247</span> kullanıcı çevrimiçi</span>
+                        </div>
+                        <h1 class="text-5xl md:text-7xl font-black mb-6">
+                            <span class="gradient-text">HytaleTR</span>
+                        </h1>
+                        <p class="text-xl md:text-2xl text-gray-400 mb-4 max-w-2xl mx-auto">
+                            Türkiye'nin En Büyük <span class="text-cyan-400 font-bold">Hytale</span> Topluluğu
+                        </p>
+                        <p class="text-gray-500 mb-8 max-w-xl mx-auto">
+                            Forum, sunucu listesi, mod & kaynak paylaşımı, pazar yeri ve çok daha fazlası!
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <button onclick="navigateTo('forum')" class="btn-primary px-8 py-3 rounded-xl font-bold text-white">
+                                <i class="fas fa-rocket mr-2"></i>Foruma Katıl
+                            </button>
+                            <button onclick="navigateTo('servers')" class="btn-cyan px-8 py-3 rounded-xl font-bold text-white">
+                                <i class="fas fa-server mr-2"></i>Sunucu Bul
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="max-w-5xl mx-auto px-4 pb-12">
+                    <div class="glass rounded-2xl p-6 grid grid-cols-2 md:grid-cols-4 gap-6">
+                        <div class="text-center">
+                            <div class="text-3xl font-black gradient-text" id="stat-members">24,856</div>
+                            <div class="text-sm text-gray-400 mt-1"><i class="fas fa-users mr-1"></i>Üye</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-cyan-400">12,430</div>
+                            <div class="text-sm text-gray-400 mt-1"><i class="fas fa-comments mr-1"></i>Konu</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black text-green-400">89,215</div>
+                            <div class="text-sm text-gray-400 mt-1"><i class="fas fa-message mr-1"></i>Mesaj</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-black gradient-text-gold">1,847</div>
+                            <div class="text-sm text-gray-400 mt-1"><i class="fas fa-puzzle-piece mr-1"></i>Kaynak</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Latest Topics & Sidebar -->
+            <section class="max-w-7xl mx-auto px-4 py-12">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Latest Forum Topics -->
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-2xl font-bold text-white"><i class="fas fa-fire text-orange-400 mr-2"></i>Son Konular</h2>
+                            <button onclick="navigateTo('forum')" class="text-cyan-400 hover:text-cyan-300 text-sm"><i class="fas fa-arrow-right mr-1"></i>Tümü</button>
+                        </div>
+                        <div class="space-y-3" id="latestTopics">
+                            <!-- Topics will be rendered by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <div class="space-y-6">
+                        <!-- Online Users -->
+                        <div class="glass rounded-2xl p-5">
+                            <h3 class="font-bold text-white mb-4"><i class="fas fa-circle text-green-400 mr-2 text-xs"></i>Çevrimiçi Üyeler</h3>
+                            <div class="flex flex-wrap gap-2" id="onlineUsers">
+                                <!-- Rendered by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Top Members -->
+                        <div class="glass rounded-2xl p-5">
+                            <h3 class="font-bold text-white mb-4"><i class="fas fa-trophy text-yellow-400 mr-2"></i>En Aktif Üyeler</h3>
+                            <div class="space-y-3" id="topMembers">
+                                <!-- Rendered by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Recent Resources -->
+                        <div class="glass rounded-2xl p-5">
+                            <h3 class="font-bold text-white mb-4"><i class="fas fa-download text-cyan-400 mr-2"></i>Yeni Kaynaklar</h3>
+                            <div class="space-y-3" id="recentResources">
+                                <!-- Rendered by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Discord Widget -->
+                        <div class="glass rounded-2xl p-5 glow-cyan">
+                            <div class="flex items-center space-x-3 mb-4">
+                                <i class="fab fa-discord text-2xl text-indigo-400"></i>
+                                <div>
+                                    <h3 class="font-bold text-white">Discord Sunucumuz</h3>
+                                    <p class="text-xs text-gray-400">3,421 üye çevrimiçi</p>
+                                </div>
+                            </div>
+                            <button class="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2.5 rounded-xl font-bold text-sm transition">
+                                <i class="fab fa-discord mr-2"></i>Discord'a Katıl
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Featured Servers -->
+            <section class="max-w-7xl mx-auto px-4 py-12">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-white"><i class="fas fa-star text-yellow-400 mr-2"></i>Öne Çıkan Sunucular</h2>
+                    <button onclick="navigateTo('servers')" class="text-cyan-400 hover:text-cyan-300 text-sm"><i class="fas fa-arrow-right mr-1"></i>Tümü</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="featuredServers">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== FORUM PAGE ==================== -->
+        <div id="page-forum" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <!-- Forum Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-3xl font-black text-white mb-2"><i class="fas fa-comments text-cyan-400 mr-3"></i>Forum</h1>
+                        <p class="text-gray-400">Hytale hakkında her şeyi tartışın</p>
+                    </div>
+                    <button onclick="showNewTopicModal()" class="btn-primary px-6 py-3 rounded-xl font-bold text-white mt-4 md:mt-0">
+                        <i class="fas fa-plus mr-2"></i>Yeni Konu Aç
+                    </button>
+                </div>
+
+                <!-- Forum Categories -->
+                <div class="space-y-4" id="forumCategories">
+                    <!-- Rendered by JS -->
+                </div>
+
+                <!-- Forum Topics List -->
+                <div class="mt-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold text-white">Son Konular</h2>
+                        <div class="flex space-x-2">
+                            <select class="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none">
+                                <option>Tüm Kategoriler</option>
+                                <option>Hytale Genel</option>
+                                <option>Sunucu Tanıtımları</option>
+                                <option>Mod/Eklenti</option>
+                                <option>Rehberler</option>
+                            </select>
+                            <select class="bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none">
+                                <option>Son Yanıt</option>
+                                <option>En Yeni</option>
+                                <option>En Popüler</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="space-y-2" id="forumTopicsList">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-8 space-x-2">
+                        <button class="w-10 h-10 rounded-lg bg-white/5 text-gray-400 hover:bg-cyan-500/20 hover:text-cyan-400 transition"><i class="fas fa-chevron-left"></i></button>
+                        <button class="w-10 h-10 rounded-lg bg-cyan-500/20 text-cyan-400 font-bold">1</button>
+                        <button class="w-10 h-10 rounded-lg bg-white/5 text-gray-400 hover:bg-cyan-500/20 hover:text-cyan-400 transition">2</button>
+                        <button class="w-10 h-10 rounded-lg bg-white/5 text-gray-400 hover:bg-cyan-500/20 hover:text-cyan-400 transition">3</button>
+                        <span class="w-10 h-10 flex items-center justify-center text-gray-500">...</span>
+                        <button class="w-10 h-10 rounded-lg bg-white/5 text-gray-400 hover:bg-cyan-500/20 hover:text-cyan-400 transition">24</button>
+                        <button class="w-10 h-10 rounded-lg bg-white/5 text-gray-400 hover:bg-cyan-500/20 hover:text-cyan-400 transition"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== TOPIC DETAIL PAGE ==================== -->
+        <div id="page-topic" class="page-content hidden">
+            <div class="max-w-5xl mx-auto px-4 py-8">
+                <div id="topicDetail">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SERVERS PAGE ==================== -->
+        <div id="page-servers" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-3xl font-black text-white mb-2"><i class="fas fa-server text-green-400 mr-3"></i>Sunucu Listesi</h1>
+                        <p class="text-gray-400">En iyi Hytale sunucularını keşfet ve oy ver</p>
+                    </div>
+                    <button onclick="showAddServerModal()" class="btn-green px-6 py-3 rounded-xl font-bold text-white mt-4 md:mt-0">
+                        <i class="fas fa-plus mr-2"></i>Sunucu Ekle
+                    </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="glass rounded-2xl p-4 mb-6 flex flex-wrap gap-3">
+                    <input type="text" placeholder="Sunucu ara..." class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm flex-1 min-w-48 focus:outline-none focus:border-cyan-500/50 text-white">
+                    <select class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-gray-300 focus:outline-none">
+                        <option>Tüm Modlar</option>
+                        <option>Survival</option>
+                        <option>PvP</option>
+                        <option>RPG</option>
+                        <option>Creative</option>
+                        <option>Minigames</option>
+                    </select>
+                    <select class="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm text-gray-300 focus:outline-none">
+                        <option>En Çok Oy</option>
+                        <option>En Yeni</option>
+                        <option>En Çok Oyuncu</option>
+                    </select>
+                </div>
+
+                <!-- Server List -->
+                <div class="space-y-4" id="serverList">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== RESOURCES PAGE ==================== -->
+        <div id="page-resources" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-3xl font-black text-white mb-2"><i class="fas fa-puzzle-piece text-purple-400 mr-3"></i>Kaynak Merkezi</h1>
+                        <p class="text-gray-400">Modlar, scriptler, haritalar ve daha fazlası</p>
+                    </div>
+                    <button onclick="showUploadResourceModal()" class="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 rounded-xl font-bold text-white mt-4 md:mt-0 hover:shadow-lg hover:shadow-purple-500/20 transition">
+                        <i class="fas fa-upload mr-2"></i>Kaynak Yükle
+                    </button>
+                </div>
+
+                <!-- Resource Tabs -->
+                <div class="flex space-x-1 mb-6 overflow-x-auto border-b border-white/10">
+                    <button class="px-5 py-3 text-sm font-medium text-cyan-400 tab-active whitespace-nowrap" onclick="filterResources('all', this)">Tümü</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap" onclick="filterResources('mod', this)">Modlar</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap" onclick="filterResources('script', this)">Scriptler</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap" onclick="filterResources('map', this)">Haritalar</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap" onclick="filterResources('texture', this)">Texture Packler</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap" onclick="filterResources('tool', this)">Araçlar</button>
+                </div>
+
+                <!-- Resources Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="resourceGrid">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MARKET PAGE ==================== -->
+        <div id="page-market" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                    <div>
+                        <h1 class="text-3xl font-black text-white mb-2"><i class="fas fa-store text-orange-400 mr-3"></i>Pazar Yeri</h1>
+                        <p class="text-gray-400">Premium kaynakları al veya sat</p>
+                    </div>
+                    <button class="btn-primary px-6 py-3 rounded-xl font-bold text-white mt-4 md:mt-0">
+                        <i class="fas fa-tag mr-2"></i>Ürün Sat
+                    </button>
+                </div>
+
+                <!-- Market Stats -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="glass rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-orange-400">₺124,500</div>
+                        <div class="text-xs text-gray-400 mt-1">Toplam İşlem</div>
+                    </div>
+                    <div class="glass rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-green-400">847</div>
+                        <div class="text-xs text-gray-400 mt-1">Aktif Ürün</div>
+                    </div>
+                    <div class="glass rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-cyan-400">2,341</div>
+                        <div class="text-xs text-gray-400 mt-1">Satış</div>
+                    </div>
+                    <div class="glass rounded-xl p-4 text-center">
+                        <div class="text-2xl font-bold text-purple-400">156</div>
+                        <div class="text-xs text-gray-400 mt-1">Satıcı</div>
+                    </div>
+                </div>
+
+                <!-- Market Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="marketGrid">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== PROFILE PAGE ==================== -->
+        <div id="page-profile" class="page-content hidden">
+            <div class="max-w-5xl mx-auto px-4 py-8">
+                <!-- Profile Header -->
+                <div class="glass rounded-2xl overflow-hidden mb-8">
+                    <!-- Banner -->
+                    <div class="h-48 bg-gradient-to-r from-cyan-600/30 via-purple-600/30 to-pink-600/30 relative">
+                        <div class="absolute inset-0 bg-gradient-to-t from-hytale-card to-transparent"></div>
+                    </div>
+                    <div class="px-8 pb-6 -mt-16 relative">
+                        <div class="flex flex-col md:flex-row md:items-end md:space-x-6">
+                            <div class="relative">
+                                <div class="w-32 h-32 rounded-2xl bg-gradient-to-br from-cyan-400 to-purple-500 flex items-center justify-center text-5xl font-black text-white border-4 border-hytale-card">
+                                    HT
+                                </div>
+                                <div class="absolute -bottom-1 -right-1 w-8 h-8 bg-green-400 rounded-full border-4 border-hytale-card pulse-online"></div>
+                            </div>
+                            <div class="mt-4 md:mt-0 flex-1">
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <h1 class="text-3xl font-black text-white">HytaleTR_Admin</h1>
+                                    <span class="px-3 py-1 rounded-full badge-admin text-white text-xs font-bold">Admin</span>
+                                    <span class="px-3 py-1 rounded-full badge-dev text-white text-xs font-bold">Geliştirici</span>
+                                </div>
+                                <p class="text-gray-400 mb-3">Hytale Türkiye Topluluğu Kurucusu 🎮</p>
+                                <div class="flex flex-wrap gap-4 text-sm text-gray-400">
+                                    <span><i class="fas fa-calendar mr-1"></i>Ocak 2024'ten beri</span>
+                                    <span><i class="fas fa-map-marker-alt mr-1"></i>İstanbul, TR</span>
+                                    <span><i class="fas fa-message mr-1"></i>4,521 mesaj</span>
+                                    <span><i class="fas fa-heart mr-1 text-red-400"></i>2,340 beğeni</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 md:mt-0 flex space-x-2">
+                                <button class="btn-cyan px-4 py-2 rounded-xl text-sm font-bold text-white"><i class="fas fa-envelope mr-1"></i>Mesaj</button>
+                                <button class="bg-white/5 border border-white/10 px-4 py-2 rounded-xl text-sm font-bold hover:bg-white/10 transition"><i class="fas fa-user-plus mr-1"></i>Takip</button>
+                            </div>
+                        </div>
+
+                        <!-- XP Bar -->
+                        <div class="mt-6 glass rounded-xl p-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-bold text-white"><i class="fas fa-star text-yellow-400 mr-1"></i>Seviye 15</span>
+                                <span class="text-xs text-gray-400">2,450 / 3,000 XP</span>
+                            </div>
+                            <div class="w-full bg-white/10 rounded-full h-3">
+                                <div class="xp-bar h-3 rounded-full" style="width: 82%"></div>
+                            </div>
+                        </div>
+
+                        <!-- Badges -->
+                        <div class="mt-4">
+                            <h3 class="text-sm font-bold text-gray-400 mb-2">Rozetler</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full bg-yellow-500/20 text-yellow-400 text-xs font-bold"><i class="fas fa-crown mr-1"></i>Kurucu</span>
+                                <span class="px-3 py-1 rounded-full bg-purple-500/20 text-purple-400 text-xs font-bold"><i class="fas fa-code mr-1"></i>Geliştirici</span>
+                                <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-400 text-xs font-bold"><i class="fas fa-pen mr-1"></i>İçerik Üretici</span>
+                                <span class="px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-xs font-bold"><i class="fas fa-fire mr-1"></i>Aktif Üye</span>
+                                <span class="px-3 py-1 rounded-full bg-red-500/20 text-red-400 text-xs font-bold"><i class="fas fa-heart mr-1"></i>100+ Beğeni</span>
+                                <span class="px-3 py-1 rounded-full bg-blue-500/20 text-blue-400 text-xs font-bold"><i class="fas fa-bug mr-1"></i>Bug Hunter</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Tabs -->
+                <div class="flex space-x-1 mb-6 overflow-x-auto border-b border-white/10">
+                    <button class="px-5 py-3 text-sm font-medium text-cyan-400 tab-active whitespace-nowrap">Aktivite</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap">Konular (124)</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap">Mesajlar (4,521)</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap">Kaynaklar (23)</button>
+                    <button class="px-5 py-3 text-sm font-medium text-gray-400 hover:text-white whitespace-nowrap">Takipçiler (856)</button>
+                </div>
+
+                <!-- Activity Feed -->
+                <div class="space-y-4">
+                    <div class="glass rounded-xl p-4 flex items-start space-x-4">
+                        <div class="w-10 h-10 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400"><i class="fas fa-comment"></i></div>
+                        <div class="flex-1">
+                            <p class="text-sm"><span class="font-bold text-white">HytaleTR_Admin</span> <span class="text-gray-400">bir konuya yanıt verdi</span></p>
+                            <a href="#" class="text-cyan-400 text-sm hover:underline">"Hytale Beta Ne Zaman Çıkacak?"</a>
+                            <p class="text-xs text-gray-500 mt-1">5 dakika önce</p>
+                        </div>
+                    </div>
+                    <div class="glass rounded-xl p-4 flex items-start space-x-4">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400"><i class="fas fa-upload"></i></div>
+                        <div class="flex-1">
+                            <p class="text-sm"><span class="font-bold text-white">HytaleTR_Admin</span> <span class="text-gray-400">yeni bir kaynak paylaştı</span></p>
+                            <a href="#" class="text-green-400 text-sm hover:underline">"Advanced Combat Mod v2.1"</a>
+                            <p class="text-xs text-gray-500 mt-1">2 saat önce</p>
+                        </div>
+                    </div>
+                    <div class="glass rounded-xl p-4 flex items-start space-x-4">
+                        <div class="w-10 h-10 rounded-lg bg-yellow-500/20 flex items-center justify-center text-yellow-400"><i class="fas fa-trophy"></i></div>
+                        <div class="flex-1">
+                            <p class="text-sm"><span class="font-bold text-white">HytaleTR_Admin</span> <span class="text-gray-400">yeni bir rozet kazandı:</span> <span class="text-yellow-400 font-bold">Bug Hunter</span></p>
+                            <p class="text-xs text-gray-500 mt-1">1 gün önce</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== MESSAGES PAGE ==================== -->
+        <div id="page-messages" class="page-content hidden">
+            <div class="max-w-6xl mx-auto px-4 py-8">
+                <h1 class="text-3xl font-black text-white mb-6"><i class="fas fa-envelope text-cyan-400 mr-3"></i>Mesajlar</h1>
+                <div class="glass rounded-2xl overflow-hidden flex" style="height: 70vh;">
+                    <!-- Conversations List -->
+                    <div class="w-80 border-r border-white/10 flex flex-col">
+                        <div class="p-4 border-b border-white/10">
+                            <input type="text" placeholder="Kişi ara..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-cyan-500/50 text-white">
+                        </div>
+                        <div class="flex-1 overflow-y-auto scrollbar-custom" id="conversationList">
+                            <!-- Rendered by JS -->
+                        </div>
+                    </div>
+                    <!-- Chat Area -->
+                    <div class="flex-1 flex flex-col">
+                        <div class="p-4 border-b border-white/10 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center font-bold text-sm text-white">EM</div>
+                                <div>
+                                    <p class="font-bold text-white text-sm">EliteModer</p>
+                                    <p class="text-xs text-green-400">Çevrimiçi</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="p-2 text-gray-400 hover:text-white transition"><i class="fas fa-phone"></i></button>
+                                <button class="p-2 text-gray-400 hover:text-white transition"><i class="fas fa-video"></i></button>
+                                <button class="p-2 text-gray-400 hover:text-white transition"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </div>
+                        <div class="flex-1 overflow-y-auto scrollbar-custom p-4 space-y-4" id="chatMessages">
+                            <!-- Rendered by JS -->
+                        </div>
+                        <div class="p-4 border-t border-white/10">
+                            <div class="flex space-x-3">
+                                <button class="p-2 text-gray-400 hover:text-white transition"><i class="fas fa-paperclip"></i></button>
+                                <input type="text" id="messageInput" placeholder="Mesaj yaz..." class="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-cyan-500/50 text-white" onkeypress="if(event.key==='Enter')sendMessage()">
+                                <button onclick="sendMessage()" class="btn-cyan px-4 py-2 rounded-xl text-sm font-bold text-white"><i class="fas fa-paper-plane"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== LEADERBOARD PAGE ==================== -->
+        <div id="page-leaderboard" class="page-content hidden">
+            <div class="max-w-5xl mx-auto px-4 py-8">
+                <h1 class="text-3xl font-black text-white mb-6"><i class="fas fa-trophy text-yellow-400 mr-3"></i>Sıralama Tablosu</h1>
+                <div class="glass rounded-2xl overflow-hidden">
+                    <div class="flex border-b border-white/10">
+                        <button class="flex-1 px-5 py-3 text-sm font-medium text-cyan-400 tab-active">XP Sıralaması</button>
+                        <button class="flex-1 px-5 py-3 text-sm font-medium text-gray-400 hover:text-white">Mesaj Sayısı</button>
+                        <button class="flex-1 px-5 py-3 text-sm font-medium text-gray-400 hover:text-white">Beğeni</button>
+                        <button class="flex-1 px-5 py-3 text-sm font-medium text-gray-400 hover:text-white">Kaynak</button>
+                    </div>
+                    <div id="leaderboardTable" class="divide-y divide-white/5">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== SETTINGS PAGE ==================== -->
+        <div id="page-settings" class="page-content hidden">
+            <div class="max-w-3xl mx-auto px-4 py-8">
+                <h1 class="text-3xl font-black text-white mb-6"><i class="fas fa-cog text-gray-400 mr-3"></i>Ayarlar</h1>
+                <div class="space-y-6">
+                    <div class="glass rounded-2xl p-6">
+                        <h2 class="text-xl font-bold text-white mb-4">Profil Ayarları</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Kullanıcı Adı</label>
+                                <input type="text" value="HytaleTR_Admin" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">E-posta</label>
+                                <input type="email" value="admin@hytalettr.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">Biyografi</label>
+                                <textarea class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50 h-24" placeholder="Kendinizi tanıtın...">Hytale Türkiye Topluluğu Kurucusu 🎮</textarea>
+                            </div>
+                            <button class="btn-primary px-6 py-3 rounded-xl font-bold text-white">Kaydet</button>
+                        </div>
+                    </div>
+                    <div class="glass rounded-2xl p-6">
+                        <h2 class="text-xl font-bold text-white mb-4">Bildirim Ayarları</h2>
+                        <div class="space-y-3">
+                            <label class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 cursor-pointer">
+                                <span class="text-sm">E-posta Bildirimleri</span>
+                                <input type="checkbox" checked class="w-5 h-5 accent-cyan-500">
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 cursor-pointer">
+                                <span class="text-sm">Yeni Yanıt Bildirimleri</span>
+                                <input type="checkbox" checked class="w-5 h-5 accent-cyan-500">
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 cursor-pointer">
+                                <span class="text-sm">Özel Mesaj Bildirimleri</span>
+                                <input type="checkbox" checked class="w-5 h-5 accent-cyan-500">
+                            </label>
+                            <label class="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 cursor-pointer">
+                                <span class="text-sm">Beğeni Bildirimleri</span>
+                                <input type="checkbox" class="w-5 h-5 accent-cyan-500">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="glass rounded-2xl p-6">
+                        <h2 class="text-xl font-bold text-white mb-4">Tema</h2>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button class="p-4 rounded-xl border-2 border-cyan-500 bg-gradient-to-br from-hytale-dark to-hytale-primary text-center">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 mx-auto mb-2"></div>
+                                <span class="text-xs">Varsayılan</span>
+                            </button>
+                            <button class="p-4 rounded-xl border-2 border-transparent hover:border-white/20 bg-gradient-to-br from-gray-900 to-gray-800 text-center">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-red-400 to-orange-500 mx-auto mb-2"></div>
+                                <span class="text-xs">Ateş</span>
+                            </button>
+                            <button class="p-4 rounded-xl border-2 border-transparent hover:border-white/20 bg-gradient-to-br from-emerald-900 to-green-800 text-center">
+                                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 mx-auto mb-2"></div>
+                                <span class="text-xs">Doğa</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== ADMIN PAGE ==================== -->
+        <div id="page-admin" class="page-content hidden">
+            <div class="max-w-7xl mx-auto px-4 py-8">
+                <h1 class="text-3xl font-black text-white mb-6"><i class="fas fa-shield-alt text-red-400 mr-3"></i>Admin Panel</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="glass rounded-xl p-5 glow-cyan">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-400">Bugünkü Kayıtlar</p>
+                                <p class="text-3xl font-bold text-cyan-400 mt-1">47</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center"><i class="fas fa-user-plus text-cyan-400 text-xl"></i></div>
+                        </div>
+                        <p class="text-xs text-green-400 mt-2"><i class="fas fa-arrow-up mr-1"></i>+12% dünden</p>
+                    </div>
+                    <div class="glass rounded-xl p-5 glow-gold">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-400">Aktif Konu</p>
+                                <p class="text-3xl font-bold text-red-400 mt-1">234</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center"><i class="fas fa-comments text-red-400 text-xl"></i></div>
+                        </div>
+                        <p class="text-xs text-green-400 mt-2"><i class="fas fa-arrow-up mr-1"></i>+8% dünden</p>
+                    </div>
+                    <div class="glass rounded-xl p-5 glow-green">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-400">Rapor Edilen</p>
+                                <p class="text-3xl font-bold text-yellow-400 mt-1">12</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center"><i class="fas fa-flag text-yellow-400 text-xl"></i></div>
+                        </div>
+                        <p class="text-xs text-red-400 mt-2"><i class="fas fa-arrow-up mr-1"></i>+3 yeni</p>
+                    </div>
+                    <div class="glass rounded-xl p-5">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm text-gray-400">Çevrimiçi</p>
+                                <p class="text-3xl font-bold text-green-400 mt-1">1,247</p>
+                            </div>
+                            <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center"><i class="fas fa-wifi text-green-400 text-xl"></i></div>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Anlık veri</p>
+                    </div>
+                </div>
+
+                <!-- Recent Reports -->
+                <div class="glass rounded-2xl p-6">
+                    <h2 class="text-xl font-bold text-white mb-4">Son Raporlar</h2>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                <div>
+                                    <p class="text-sm font-bold text-white">Spam İçerik</p>
+                                    <p class="text-xs text-gray-400">Kullanıcı: SpamBot42 | 5 dk önce</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 bg-red-500/20 text-red-400 rounded-lg text-xs hover:bg-red-500/30 transition">Yasakla</button>
+                                <button class="px-3 py-1 bg-green-500/20 text-green-400 rounded-lg text-xs hover:bg-green-500/30 transition">Onayla</button>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-white/5 rounded-xl">
+                            <div class="flex items-center space-x-3">
+                                <i class="fas fa-ban text-red-400"></i>
+                                <div>
+                                    <p class="text-sm font-bold text-white">Hakaret İçeren Mesaj</p>
+                                    <p class="text-xs text-gray-400">Kullanıcı: ToxicPlayer | 23 dk önce</p>
+                                </div>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 bg-red-500/20 text-red-400 rounded-lg text-xs hover:bg-red-500/30 transition">Yasakla</button>
+                                <button class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-lg text-xs hover:bg-yellow-500/30 transition">Uyar</button>
+                                <button class="px-3 py-1 bg-green-500/20 text-green-400 rounded-lg text-xs hover:bg-green-500/30 transition">Kaldır</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== EVENTS PAGE ==================== -->
+        <div id="page-events" class="page-content hidden">
+            <div class="max-w-5xl mx-auto px-4 py-8">
+                <h1 class="text-3xl font-black text-white mb-6"><i class="fas fa-calendar text-green-400 mr-3"></i>Etkinlikler</h1>
+                <div class="space-y-4">
+                    <div class="glass rounded-2xl p-6 glow-cyan card-hover">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-center bg-cyan-500/20 rounded-xl p-3 min-w-[60px]">
+                                <div class="text-2xl font-black text-cyan-400">15</div>
+                                <div class="text-xs text-gray-400">HAZ</div>
+                            </div>
+                            <div class="flex-1">
+                                <span class="px-2 py-0.5 rounded-full bg-green-500/20 text-green-400 text-xs font-bold">Yaklaşıyor</span>
+                                <h3 class="text-xl font-bold text-white mt-2">HytaleTR Turnuvası #1</h3>
+                                <p class="text-gray-400 text-sm mt-1">İlk resmi HytaleTR PvP turnuvamız! Ödül havuzu: ₺5,000</p>
+                                <div class="flex items-center space-x-4 mt-3 text-sm text-gray-400">
+                                    <span><i class="fas fa-users mr-1"></i>64/128 katılımcı</span>
+                                    <span><i class="fas fa-clock mr-1"></i>20:00 TSİ</span>
+                                    <span><i class="fas fa-trophy mr-1 text-yellow-400"></i>₺5,000 ödül</span>
+                                </div>
+                                <button class="btn-cyan px-4 py-2 rounded-xl text-sm font-bold text-white mt-3">Katıl</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass rounded-2xl p-6 card-hover">
+                        <div class="flex items-start space-x-4">
+                            <div class="text-center bg-purple-500/20 rounded-xl p-3 min-w-[60px]">
+                                <div class="text-2xl font-black text-purple-400">22</div>
+                                <div class="text-xs text-gray-400">HAZ</div>
+                            </div>
+                            <div class="flex-1">
+                                <span class="px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-xs font-bold">Planlanan</span>
+                                <h3 class="text-xl font-bold text-white mt-2">Mod Geliştirme Workshop</h3>
+                                <p class="text-gray-400 text-sm mt-1">Hytale modding temelleri workshop'u - başlangıç seviyesi</p>
+                                <div class="flex items-center space-x-4 mt-3 text-sm text-gray-400">
+                                    <span><i class="fas fa-users mr-1"></i>23 ilgilenen</span>
+                                    <span><i class="fas fa-clock mr-1"></i>15:00 TSİ</span>
+                                    <span><i class="fab fa-discord mr-1"></i>Discord üzerinden</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== WIKI PAGE ==================== -->
+        <div id="page-wiki" class="page-content hidden">
+            <div class="max-w-5xl mx-auto px-4 py-8">
+                <h1 class="text-3xl font-black text-white mb-6"><i class="fas fa-book text-blue-400 mr-3"></i>Hytale Wiki</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="glass rounded-xl p-5 card-hover cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center mb-3"><i class="fas fa-gamepad text-blue-400 text-xl"></i></div>
+                        <h3 class="font-bold text-white mb-1">Oyun Mekanikleri</h3>
+                        <p class="text-sm text-gray-400">Temel oynanış, kontroller ve mekanikler</p>
+                        <span class="text-xs text-gray-500 mt-2 block">42 makale</span>
+                    </div>
+                    <div class="glass rounded-xl p-5 card-hover cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center mb-3"><i class="fas fa-dragon text-green-400 text-xl"></i></div>
+                        <h3 class="font-bold text-white mb-1">Yaratıklar & NPC'ler</h3>
+                        <p class="text-sm text-gray-400">Tüm yaratıklar ve özellikleri</p>
+                        <span class="text-xs text-gray-500 mt-2 block">78 makale</span>
+                    </div>
+                    <div class="glass rounded-xl p-5 card-hover cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center mb-3"><i class="fas fa-map text-yellow-400 text-xl"></i></div>
+                        <h3 class="font-bold text-white mb-1">Dünya & Bölgeler</h3>
+                        <p class="text-sm text-gray-400">Orbis dünyası ve keşif rehberi</p>
+                        <span class="text-xs text-gray-500 mt-2 block">35 makale</span>
+                    </div>
+                    <div class="glass rounded-xl p-5 card-hover cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center mb-3"><i class="fas fa-sword text-red-400 text-xl"></i></div>
+                        <h3 class="font-bold text-white mb-1">İtemler & Silahlar</h3>
+                        <p class="text-sm text-gray-400">Tüm itemler, silahlar ve zırhlar</p>
+                        <span class="text-xs text-gray-500 mt-2 block">124 makale</span>
+                    </div>
+                    <div class="glass rounded-xl p-5 card-hover cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center mb-3"><i class="fas fa-code text-purple-400 text-xl"></i></div>
+                        <h3 class="font-bold text-white mb-1">Modding Rehberi</h3>
+                        <p class="text-sm text-gray-400">Hytale Model Maker ve scripting</p>
+                        <span class="text-xs text-gray-500 mt-2 block">56 makale</span>
+                    </div>
+                    <div class="glass rounded-xl p-5 card-hover cursor-pointer">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center mb-3"><i class="fas fa-server text-cyan-400 text-xl"></i></div>
+                        <h3 class="font-bold text-white mb-1">Sunucu Kurma</h3>
+                        <p class="text-sm text-gray-400">Kendi sunucunuzu nasıl kurarsınız</p>
+                        <span class="text-xs text-gray-500 mt-2 block">18 makale</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="glass-strong border-t border-white/5 mt-16">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-400 to-red-500 flex items-center justify-center font-black text-white text-lg">H</div>
+                        <span class="text-xl font-black gradient-text">HytaleTR</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">Türkiye'nin en büyük Hytale topluluğu. Forum, sunucu listesi, kaynak merkezi ve daha fazlası.</p>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-indigo-400 hover:bg-indigo-500/10 transition"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-blue-400 hover:bg-blue-500/10 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-gray-200 hover:bg-white/10 transition"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Topluluk</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition" onclick="navigateTo('forum')">Forum</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition" onclick="navigateTo('servers')">Sunucu Listesi</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition" onclick="navigateTo('resources')">Kaynak Merkezi</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition" onclick="navigateTo('market')">Pazar Yeri</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition" onclick="navigateTo('leaderboard')">Sıralama</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Bilgi</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition" onclick="navigateTo('wiki')">Wiki</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">Hakkımızda</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">Kurallar</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">SSS</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">İletişim</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Yasal</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-cyan-400 transition">Gizlilik Politikası</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">Kullanım Şartları</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">KVKK</a></li>
+                        <li><a href="#" class="hover:text-cyan-400 transition">Çerez Politikası</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 mt-8 pt-8 text-center text-sm text-gray-500">
+                <p>&copy; 2024 HytaleTR - Tüm hakları saklıdır. Hytale, Hypixel Studios'un tescilli markasıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- New Topic Modal -->
+    <div id="newTopicModal" class="fixed inset-0 z-[60] hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeModal('newTopicModal')"></div>
+        <div class="relative z-10 max-w-2xl mx-auto mt-20 glass-strong rounded-2xl overflow-hidden mx-4">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between">
+                <h2 class="text-xl font-bold text-white"><i class="fas fa-plus-circle text-cyan-400 mr-2"></i>Yeni Konu Aç</h2>
+                <button onclick="closeModal('newTopicModal')" class="text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto scrollbar-custom">
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Kategori</label>
+                    <select class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                        <option>Hytale Genel</option>
+                        <option>Sunucu Tanıtımları</option>
+                        <option>Mod/Eklenti Paylaşımları</option>
+                        <option>Rehberler</option>
+                        <option>Pazar Yeri / Ticaret</option>
+                        <option>Öneriler</option>
+                        <option>Off-Topic</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Konu Başlığı</label>
+                    <input type="text" id="topicTitle" placeholder="Başlık yazın..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">İçerik</label>
+                    <!-- Rich Editor Toolbar -->
+                    <div class="flex flex-wrap gap-1 mb-2 p-2 bg-white/5 rounded-t-xl border border-white/10 border-b-0">
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="Kalın"><i class="fas fa-bold"></i></button>
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="İtalik"><i class="fas fa-italic"></i></button>
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="Altı Çizili"><i class="fas fa-underline"></i></button>
+                        <div class="w-px bg-white/10 mx-1"></div>
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="Liste"><i class="fas fa-list-ul"></i></button>
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="Link"><i class="fas fa-link"></i></button>
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="Resim"><i class="fas fa-image"></i></button>
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="Kod"><i class="fas fa-code"></i></button>
+                        <button class="p-2 rounded-lg hover:bg-white/10 transition text-gray-400 hover:text-white" title="Emoji"><i class="fas fa-smile"></i></button>
+                    </div>
+                    <div contenteditable="true" id="topicContent" class="rich-editor rounded-t-none" placeholder="Konu içeriğinizi yazın..."></div>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Etiketler</label>
+                    <input type="text" placeholder="Etiket1, Etiket2, ..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                </div>
+            </div>
+            <div class="p-6 border-t border-white/10 flex justify-end space-x-3">
+                <button onclick="closeModal('newTopicModal')" class="px-6 py-3 rounded-xl font-bold text-gray-400 hover:bg-white/5 transition">İptal</button>
+                <button onclick="createTopic()" class="btn-primary px-6 py-3 rounded-xl font-bold text-white">Konuyu Oluştur</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Server Modal -->
+    <div id="addServerModal" class="fixed inset-0 z-[60] hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeModal('addServerModal')"></div>
+        <div class="relative z-10 max-w-2xl mx-auto mt-20 glass-strong rounded-2xl overflow-hidden mx-4">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between">
+                <h2 class="text-xl font-bold text-white"><i class="fas fa-server text-green-400 mr-2"></i>Sunucu Ekle</h2>
+                <button onclick="closeModal('addServerModal')" class="text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Sunucu Adı</label>
+                        <input type="text" placeholder="Sunucu adı..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">IP Adresi</label>
+                        <input type="text" placeholder="play.sunucu.com" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Açıklama</label>
+                    <textarea class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50 h-24" placeholder="Sunucunuz hakkında bilgi..."></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Oyun Modu</label>
+                        <select class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none">
+                            <option>Survival</option>
+                            <option>PvP</option>
+                            <option>RPG</option>
+                            <option>Creative</option>
+                            <option>Minigames</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Web Sitesi</label>
+                        <input type="url" placeholder="https://..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Sunucu Logosu</label>
+                    <div class="file-upload-zone">
+                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-500 mb-2"></i>
+                        <p class="text-sm text-gray-400">Sürükle & bırak veya tıkla</p>
+                        <p class="text-xs text-gray-500 mt-1">PNG, JPG (max 2MB)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-white/10 flex justify-end space-x-3">
+                <button onclick="closeModal('addServerModal')" class="px-6 py-3 rounded-xl font-bold text-gray-400 hover:bg-white/5 transition">İptal</button>
+                <button onclick="addServer()" class="btn-green px-6 py-3 rounded-xl font-bold text-white">Sunucuyu Ekle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upload Resource Modal -->
+    <div id="uploadResourceModal" class="fixed inset-0 z-[60] hidden">
+        <div class="modal-overlay absolute inset-0" onclick="closeModal('uploadResourceModal')"></div>
+        <div class="relative z-10 max-w-2xl mx-auto mt-20 glass-strong rounded-2xl overflow-hidden mx-4">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between">
+                <h2 class="text-xl font-bold text-white"><i class="fas fa-upload text-purple-400 mr-2"></i>Kaynak Yükle</h2>
+                <button onclick="closeModal('uploadResourceModal')" class="text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6 space-y-4 max-h-[70vh] overflow-y-auto scrollbar-custom">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Kaynak Adı</label>
+                        <input type="text" placeholder="Mod/Script adı..." class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Tür</label>
+                        <select class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none">
+                            <option>Mod</option>
+                            <option>Script</option>
+                            <option>Harita</option>
+                            <option>Texture Pack</option>
+                            <option>Araç</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Açıklama</label>
+                    <textarea class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50 h-24" placeholder="Kaynağınızı açıklayın..."></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Versiyon</label>
+                        <input type="text" placeholder="v1.0.0" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-2">Fiyat</label>
+                        <div class="flex">
+                            <input type="number" placeholder="0" class="w-full bg-white/5 border border-white/10 rounded-l-xl px-4 py-3 text-white focus:outline-none focus:border-cyan-500/50">
+                            <span class="bg-white/10 border border-white/10 border-l-0 rounded-r-xl px-4 py-3 text-gray-400">₺</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Ücretsiz için 0 yazın</p>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-2">Dosya Yükle</label>
+                    <div class="file-upload-zone">
+                        <i class="fas fa-cloud-upload-alt text-3xl text-gray-500 mb-2"></i>
+                        <p class="text-sm text-gray-400">Dosyanızı sürükle & bırak veya tıkla</p>
+                        <p class="text-xs text-gray-500 mt-1">ZIP, JAR, RAR (max 50MB)</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-white/10 flex justify-end space-x-3">
+                <button onclick="closeModal('uploadResourceModal')" class="px-6 py-3 rounded-xl font-bold text-gray-400 hover:bg-white/5 transition">İptal</button>
+                <button onclick="uploadResource()" class="bg-gradient-to-r from-purple-600 to-pink-600 px-6 py-3 rounded-xl font-bold text-white">Yükle</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+    // ===== DATA =====
+    const forumCategories = [
+        { id: 1, name: 'Hytale Genel', icon: 'fas fa-gamepad', color: 'from-cyan-500 to-blue-600', topics: 3420, posts: 28450, desc: 'Hytale hakkında genel tartışmalar' },
+        { id: 2, name: 'Sunucu Tanıtımları', icon: 'fas fa-server', color: 'from-green-500 to-emerald-600', topics: 1240, posts: 8920, desc: 'Sunucunuzu tanıtın ve oyuncu bulun' },
+        { id: 3, name: 'Mod / Eklenti Paylaşımları', icon: 'fas fa-puzzle-piece', color: 'from-purple-500 to-pink-600', topics: 2180, posts: 15670, desc: 'Modlar, eklentiler ve araçlar' },
+        { id: 4, name: 'Rehberler & Eğitimler', icon: 'fas fa-book-open', color: 'from-yellow-500 to-orange-600', topics: 890, posts: 6340, desc: 'Oyun rehberleri, modding eğitimleri' },
+        { id: 5, name: 'Pazar Yeri / Ticaret', icon: 'fas fa-store', color: 'from-red-500 to-pink-600', topics: 1560, posts: 12080, desc: 'Alım-satım ve ticaret' },
+        { id: 6, name: 'Öneriler & Geri Bildirim', icon: 'fas fa-lightbulb', color: 'from-amber-500 to-yellow-600', topics: 670, posts: 4520, desc: 'Site ve oyun önerileri' },
+        { id: 7, name: 'Off-Topic', icon: 'fas fa-coffee', color: 'from-gray-500 to-gray-600', topics: 2100, posts: 18900, desc: 'Hytale dışı konular' },
+    ];
+
+    const topicsData = [
+        { id: 1, title: 'Hytale Beta Ne Zaman Çıkacak? Son Bilgiler', author: 'AhmetYT', authorBadge: 'badge-vip', avatar: 'A', avatarColor: 'from-orange-400 to-red-500', category: 'Hytale Genel', replies: 147, views: 4520, likes: 89, time: '2 saat önce', pinned: true, hot: true },
+        { id: 2, title: 'En İyi PvP Sunucusu Hangisi? [Anket]', author: 'PvPMaster', authorBadge: 'badge-member', avatar: 'P', avatarColor: 'from-red-400 to-pink-500', category: 'Sunucu Tanıtımları', replies: 83, views: 2140, likes: 45, time: '4 saat önce', pinned: false, hot: true },
+        { id: 3, title: 'Başlangıç Rehberi: Hytale\'da İlk 10 Dakika', author: 'GuideGuru', authorBadge: 'badge-mod', avatar: 'G', avatarColor: 'from-green-400 to-emerald-500', category: 'Rehberler', replies: 56, views: 8920, likes: 234, time: '6 saat önce', pinned: true, hot: false },
+        { id: 4, title: 'Custom NPC Mod v3.2 - Yeni Özellikler!', author: 'ModMaster', authorBadge: 'badge-dev', avatar: 'M', avatarColor: 'from-purple-400 to-indigo-500', category: 'Mod/Eklenti', replies: 34, views: 1560, likes: 67, time: '8 saat önce', pinned: false, hot: false },
+        { id: 5, title: 'SkyBlock Sunucumuz Açıldı! - play.skytr.com', author: 'SkyTR_Admin', authorBadge: 'badge-member', avatar: 'S', avatarColor: 'from-cyan-400 to-blue-500', category: 'Sunucu Tanıtımları', replies: 28, views: 980, likes: 23, time: '12 saat önce', pinned: false, hot: false },
+        { id: 6, title: 'Hytale Model Maker ile Karakter Tasarımı', author: 'ArtistTR', authorBadge: 'badge-vip', avatar: 'A', avatarColor: 'from-pink-400 to-rose-500', category: 'Rehberler', replies: 42, views: 2340, likes: 98, time: '1 gün önce', pinned: false, hot: false },
+        { id: 7, title: 'Yarın Turnuva Var! Kim Katılıyor?', author: 'TurnuvaCı', authorBadge: 'badge-member', avatar: 'T', avatarColor: 'from-yellow-400 to-amber-500', category: 'Hytale Genel', replies: 67, views: 1890, likes: 34, time: '1 gün önce', pinned: false, hot: true },
+        { id: 8, title: '[SATILDI] Premium Texture Pack - Fantasy Theme', author: 'DesignPro', authorBadge: 'badge-vip', avatar: 'D', avatarColor: 'from-teal-400 to-cyan-500', category: 'Pazar Yeri', replies: 15, views: 670, likes: 12, time: '2 gün önce', pinned: false, hot: false },
+    ];
+
+    const serversData = [
+        { id: 1, name: 'HytaleCraft TR', ip: 'play.hytalecraft.tr', players: '847/1000', votes: 4521, mode: 'Survival', status: 'online', desc: 'Türkiye\'nin en köklü Hytale sunucusu', tags: ['Survival', 'PvP', 'Ekonomi'], featured: true },
+        { id: 2, name: 'DragonRealm', ip: 'mc.dragonrealm.net', players: '623/800', votes: 3890, mode: 'RPG', status: 'online', desc: 'RPG ve macera odaklı Hytale deneyimi', tags: ['RPG', 'Macera', 'Quest'], featured: true },
+        { id: 3, name: 'SkyBlock TR', ip: 'play.skyblock.tr', players: '412/500', votes: 2340, mode: 'Skyblock', status: 'online', desc: 'En iyi SkyBlock deneyimi', tags: ['SkyBlock', 'Ekonomi'], featured: true },
+        { id: 4, name: 'PvP Arena', ip: 'pvp.arena.tr', players: '234/400', votes: 1870, mode: 'PvP', status: 'online', desc: 'Hardcore PvP sunucusu', tags: ['PvP', 'KitPvP', 'Turnuva'], featured: false },
+        { id: 5, name: 'Creative World', ip: 'creative.world.tr', players: '156/300', votes: 1230, mode: 'Creative', status: 'online', desc: 'Yaratıcılığını konuştur', tags: ['Creative', 'Build'], featured: false },
+        { id: 6, name: 'MiniGames TR', ip: 'play.minigames.tr', players: '0/500', votes: 980, mode: 'Minigames', status: 'offline', desc: 'Eğlenceli mini oyunlar', tags: ['Minigames', 'Eğlence'], featured: false },
+    ];
+
+    const resourcesData = [
+        { id: 1, name: 'Advanced Combat Mod', type: 'mod', author: 'ModMaster', downloads: 12450, rating: 4.8, price: 0, version: 'v2.1.0', desc: 'Gelişmiş savaş mekanikleri ekler', icon: 'fas fa-sword', color: 'from-red-500 to-orange-500' },
+        { id: 2, name: 'Economy Plus Script', type: 'script', author: 'ScriptKing', downloads: 8920, rating: 4.6, price: 25, version: 'v1.5.2', desc: 'Gelişmiş ekonomi sistemi', icon: 'fas fa-coins', color: 'from-yellow-500 to-amber-500' },
+        { id: 3, name: 'Fantasy World Map', type: 'map', author: 'MapBuilder', downloads: 5670, rating: 4.9, price: 0, version: 'v1.0', desc: 'Epik fantezi dünyası haritası', icon: 'fas fa-map', color: 'from-green-500 to-emerald-500' },
+        { id: 4, name: 'Medieval Texture Pack', type: 'texture', author: 'ArtistTR', downloads: 15230, rating: 4.7, price: 15, version: 'v3.0', desc: 'Ortaçağ temalı yüksek çözünürlük', icon: 'fas fa-palette', color: 'from-purple-500 to-pink-500' },
+        { id: 5, name: 'Server Manager Tool', type: 'tool', author: 'DevPro', downloads: 3420, rating: 4.5, price: 50, version: 'v2.0.1', desc: 'Sunucu yönetim aracı', icon: 'fas fa-tools', color: 'from-cyan-500 to-blue-500' },
+        { id: 6, name: 'Custom Mobs Pack', type: 'mod', author: 'CreatureDev', downloads: 9870, rating: 4.4, price: 0, version: 'v1.3', desc: '50+ özel yaratık ekler', icon: 'fas fa-dragon', color: 'from-indigo-500 to-purple-500' },
+    ];
+
+    const marketData = [
+        { id: 1, name: 'Pro Lobby System', seller: 'DevPro', price: 75, sales: 234, rating: 4.9, image: 'fas fa-cube', color: 'from-cyan-600 to-blue-600' },
+        { id: 2, name: 'Custom GUI Pack', seller: 'UIDesigner', price: 35, sales: 567, rating: 4.7, image: 'fas fa-desktop', color: 'from-purple-600 to-pink-600' },
+        { id: 3, name: 'Advanced Anti-Cheat', seller: 'SecurityPro', price: 120, sales: 89, rating: 4.8, image: 'fas fa-shield-alt', color: 'from-red-600 to-orange-600' },
+        { id: 4, name: 'Dungeon Generator', seller: 'MapMaster', price: 45, sales: 156, rating: 4.6, image: 'fas fa-dungeon', color: 'from-amber-600 to-yellow-600' },
+        { id: 5, name: 'Quest System Pro', seller: 'QuestDev', price: 90, sales: 112, rating: 4.8, image: 'fas fa-scroll', color: 'from-green-600 to-emerald-600' },
+        { id: 6, name: 'Animated Cosmetics', seller: 'CosmeticPro', price: 60, sales: 345, rating: 4.5, image: 'fas fa-hat-wizard', color: 'from-indigo-600 to-violet-600' },
+    ];
+
+    const onlineUsers = [
+        { name: 'AhmetYT', color: 'from-orange-400 to-red-500' },
+        { name: 'EliteModer', color: 'from-green-400 to-emerald-500' },
+        { name: 'PvPMaster', color: 'from-red-400 to-pink-500' },
+        { name: 'GuideGuru', color: 'from-blue-400 to-indigo-500' },
+        { name: 'ModMaster', color: 'from-purple-400 to-pink-500' },
+        { name: 'SkyTR_Admin', color: 'from-cyan-400 to-blue-500' },
+        { name: 'ArtistTR', color: 'from-pink-400 to-rose-500' },
+        { name: 'DevPro', color: 'from-teal-400 to-cyan-500' },
+        { name: 'Gamer42', color: 'from-yellow-400 to-amber-500' },
+        { name: 'ProBuilder', color: 'from-lime-400 to-green-500' },
+        { name: 'NightOwl', color: 'from-indigo-400 to-blue-500' },
+        { name: 'CraftKing', color: 'from-amber-400 to-orange-500' },
+    ];
+
+    const topMembers = [
+        { name: 'HytaleTR_Admin', level: 15, xp: 24500, badge: 'Admin', badgeClass: 'badge-admin', color: 'from-cyan-400 to-purple-500' },
+        { name: 'ModMaster', level: 12, xp: 18700, badge: 'Geliştirici', badgeClass: 'badge-dev', color: 'from-purple-400 to-pink-500' },
+        { name: 'AhmetYT', level: 11, xp: 16200, badge: 'VIP', badgeClass: 'badge-vip', color: 'from-orange-400 to-red-500' },
+        { name: 'GuideGuru', level: 10, xp: 14500, badge: 'Moderatör', badgeClass: 'badge-mod', color: 'from-green-400 to-emerald-500' },
+        { name: 'PvPMaster', level: 9, xp: 12800, badge: 'Üye', badgeClass: 'badge-member', color: 'from-red-400 to-pink-500' },
+    ];
+
+    const conversations = [
+        { name: 'EliteModer', avatar: 'EM', color: 'from-green-400 to-emerald-500', lastMsg: 'Mod güncelleme hazır!', time: '2dk', unread: 1, online: true },
+        { name: 'AhmetYT', avatar: 'AY', color: 'from-orange-400 to-red-500', lastMsg: 'Turnuva kaydını yaptım', time: '15dk', unread: 1, online: true },
+        { name: 'MapBuilder', avatar: 'MB', color: 'from-blue-400 to-indigo-500', lastMsg: 'Harita tamamlandı', time: '1s', unread: 0, online: false },
+        { name: 'DevPro', avatar: 'DP', color: 'from-teal-400 to-cyan-500', lastMsg: 'API dökümantasyonu', time: '3s', unread: 0, online: true },
+    ];
+
+    const chatMessagesData = [
+        { from: 'EliteModer', msg: 'Selam! Mod güncellemesi hakkında konuşmak istiyorum.', time: '14:32', mine: false },
+        { from: 'Ben', msg: 'Tabii, ne var?', time: '14:33', mine: true },
+        { from: 'EliteModer', msg: 'v2.1 güncellemesini tamamladım. Yeni savaş mekanikleri ekledim. Test etmeni istiyorum.', time: '14:35', mine: false },
+        { from: 'Ben', msg: 'Süper! Hemen bakıyorum. Dosyayı gönderebilir misin?', time: '14:36', mine: true },
+        { from: 'EliteModer', msg: 'Tabii, şimdi yüklüyorum... 📎', time: '14:37', mine: false },
+        { from: 'EliteModer', msg: 'Mod güncelleme hazır! İşte dosya linki: hytalettr.com/download/combat-mod-v21', time: '14:38', mine: false },
+    ];
+
+    const leaderboardData = [
+        { rank: 1, name: 'HytaleTR_Admin', level: 15, xp: 24500, messages: 4521, likes: 2340, resources: 23, badge: 'Admin', badgeClass: 'badge-admin', color: 'from-cyan-400 to-purple-500' },
+        { rank: 2, name: 'ModMaster', level: 12, xp: 18700, messages: 3210, likes: 1890, resources: 45, badge: 'Geliştirici', badgeClass: 'badge-dev', color: 'from-purple-400 to-pink-500' },
+        { rank: 3, name: 'AhmetYT', level: 11, xp: 16200, messages: 2890, likes: 1560, resources: 12, badge: 'VIP', badgeClass: 'badge-vip', color: 'from-orange-400 to-red-500' },
+        { rank: 4, name: 'GuideGuru', level: 10, xp: 14500, messages: 2340, likes: 1230, resources: 34, badge: 'Moderatör', badgeClass: 'badge-mod', color: 'from-green-400 to-emerald-500' },
+        { rank: 5, name: 'PvPMaster', level: 9, xp: 12800, messages: 1980, likes: 890, resources: 8, badge: 'Üye', badgeClass: 'badge-member', color: 'from-red-400 to-pink-500' },
+        { rank: 6, name: 'ArtistTR', level: 9, xp: 12200, messages: 1560, likes: 2100, resources: 28, badge: 'VIP', badgeClass: 'badge-vip', color: 'from-pink-400 to-rose-500' },
+        { rank: 7, name: 'SkyTR_Admin', level: 8, xp: 10500, messages: 1230, likes: 670, resources: 5, badge: 'Üye', badgeClass: 'badge-member', color: 'from-cyan-400 to-blue-500' },
+        { rank: 8, name: 'DevPro', level: 8, xp: 10100, messages: 980, likes: 560, resources: 15, badge: 'Geliştirici', badgeClass: 'badge-dev', color: 'from-teal-400 to-cyan-500' },
+        { rank: 9, name: 'CraftKing', level: 7, xp: 8900, messages: 870, likes: 450, resources: 3, badge: 'Üye', badgeClass: 'badge-member', color: 'from-amber-400 to-orange-500' },
+        { rank: 10, name: 'NightOwl', level: 7, xp: 8500, messages: 780, likes: 340, resources: 7, badge: 'Üye', badgeClass: 'badge-member', color: 'from-indigo-400 to-blue-500' },
+    ];
+
+
+    // ===== NAVIGATION =====
+    function navigateTo(page) {
+        document.querySelectorAll('.page-content').forEach(p => p.classList.add('hidden'));
+        const target = document.getElementById(`page-${page}`);
+        if (target) {
+            target.classList.remove('hidden');
+        }
+
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        const navLink = document.querySelector(`.nav-link[data-page="${page}"]`);
+        if (navLink) navLink.classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Close mobile menu
+        document.getElementById('mobileMenu').classList.add('hidden');
+    }
+
+
+    // ===== RENDER FUNCTIONS =====
+    function renderLatestTopics() {
+        const container = document.getElementById('latestTopics');
+        container.innerHTML = topicsData.map(t => `
+            <div class="glass rounded-xl p-4 card-hover cursor-pointer" onclick="openTopic(${t.id})">
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br ${t.avatarColor} flex items-center justify-center font-bold text-sm text-white flex-shrink-0">${t.avatar}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center space-x-2 mb-1">
+                            ${t.pinned ? '<span class="text-xs text-yellow-400"><i class="fas fa-thumbtack"></i></span>' : ''}
+                            ${t.hot ? '<span class="text-xs text-orange-400"><i class="fas fa-fire"></i></span>' : ''}
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400">${t.category}</span>
+                        </div>
+                        <h3 class="font-bold text-white text-sm truncate hover:text-cyan-400 transition">${t.title}</h3>
+                        <div class="flex items-center space-x-3 mt-2 text-xs text-gray-500">
+                            <span><span class="font-medium text-gray-300">${t.author}</span></span>
+                            <span><i class="fas fa-clock mr-1"></i>${t.time}</span>
+                            <span><i class="fas fa-comment mr-1"></i>${t.replies}</span>
+                            <span><i class="fas fa-eye mr-1"></i>${t.views}</span>
+                            <span><i class="fas fa-heart mr-1 text-red-400"></i>${t.likes}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderOnlineUsers() {
+        const container = document.getElementById('onlineUsers');
+        container.innerHTML = onlineUsers.map(u => `
+            <div class="w-8 h-8 rounded-full bg-gradient-to-br ${u.color} flex items-center justify-center text-xs font-bold text-white cursor-pointer hover:scale-110 transition" title="${u.name}">${u.name[0]}</div>
+        `).join('') + `<div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs text-gray-400 cursor-pointer">+${Math.floor(Math.random()*100)}</div>`;
+    }
+
+    function renderTopMembers() {
+        const container = document.getElementById('topMembers');
+        container.innerHTML = topMembers.map((m, i) => `
+            <div class="flex items-center space-x-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition" onclick="navigateTo('profile')">
+                <span class="text-lg font-bold ${i === 0 ? 'text-yellow-400' : i === 1 ? 'text-gray-300' : i === 2 ? 'text-amber-600' : 'text-gray-500'}">#${i+1}</span>
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br ${m.color} flex items-center justify-center text-xs font-bold text-white">${m.name[0]}</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-white truncate">${m.name}</p>
+                    <p class="text-xs text-gray-500">Lv.${m.level} • ${m.xp.toLocaleString()} XP</p>
+                </div>
+                <span class="text-xs px-2 py-0.5 rounded-full ${m.badgeClass} text-white">${m.badge}</span>
+            </div>
+        `).join('');
+    }
+
+    function renderRecentResources() {
+        const container = document.getElementById('recentResources');
+        container.innerHTML = resourcesData.slice(0, 4).map(r => `
+            <div class="flex items-center space-x-3 cursor-pointer hover:bg-white/5 p-2 rounded-lg transition" onclick="navigateTo('resources')">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br ${r.color} flex items-center justify-center"><i class="${r.icon} text-white text-sm"></i></div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-sm font-bold text-white truncate">${r.name}</p>
+                    <p class="text-xs text-gray-500">${r.downloads.toLocaleString()} indirme</p>
+                </div>
+                <span class="text-xs ${r.price === 0 ? 'text-green-400' : 'text-orange-400'}">${r.price === 0 ? 'Ücretsiz' : '₺' + r.price}</span>
+            </div>
+        `).join('');
+    }
+
+    function renderFeaturedServers() {
+        const container = document.getElementById('featuredServers');
+        container.innerHTML = serversData.filter(s => s.featured).map(s => `
+            <div class="glass rounded-2xl p-5 card-hover glow-green">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center font-bold text-white text-lg">${s.name[0]}</div>
+                    <span class="flex items-center text-xs ${s.status === 'online' ? 'text-green-400' : 'text-red-400'}">
+                        <span class="w-2 h-2 rounded-full ${s.status === 'online' ? 'bg-green-400' : 'bg-red-400'} mr-1 ${s.status === 'online' ? 'pulse-online' : ''}"></span>${s.status === 'online' ? 'Çevrimiçi' : 'Çevrimdışı'}
+                    </span>
+                </div>
+                <h3 class="font-bold text-white text-lg mb-1">${s.name}</h3>
+                <p class="text-sm text-gray-400 mb-3">${s.desc}</p>
+                <div class="flex flex-wrap gap-1 mb-3">
+                    ${s.tags.map(tag => `<span class="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400">${tag}</span>`).join('')}
+                </div>
+                <div class="flex items-center justify-between text-sm">
+                    <span class="text-gray-400"><i class="fas fa-users mr-1"></i>${s.players}</span>
+                    <span class="text-yellow-400"><i class="fas fa-star mr-1"></i>${s.votes.toLocaleString()} oy</span>
+                </div>
+                <div class="mt-3 flex space-x-2">
+                    <button class="flex-1 bg-green-600/20 text-green-400 py-2 rounded-xl text-sm font-bold hover:bg-green-600/30 transition" onclick="copyIP('${s.ip}')"><i class="fas fa-copy mr-1"></i>${s.ip}</button>
+                    <button class="vote-btn px-3 py-2 bg-yellow-500/20 text-yellow-400 rounded-xl hover:bg-yellow-500/30 transition" onclick="voteServer(${s.id}, this)"><i class="fas fa-arrow-up"></i></button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderForumCategories() {
+        const container = document.getElementById('forumCategories');
+        container.innerHTML = forumCategories.map(c => `
+            <div class="glass rounded-xl p-4 card-hover cursor-pointer" onclick="navigateTo('forum')">
+                <div class="flex items-center space-x-4">
+                    <div class="category-icon bg-gradient-to-br ${c.color} text-white flex-shrink-0"><i class="${c.icon}"></i></div>
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-white">${c.name}</h3>
+                        <p class="text-sm text-gray-400">${c.desc}</p>
+                    </div>
+                    <div class="hidden md:flex space-x-6 text-center flex-shrink-0">
+                        <div>
+                            <div class="text-lg font-bold text-white">${c.topics.toLocaleString()}</div>
+                            <div class="text-xs text-gray-500">Konu</div>
+                        </div>
+                        <div>
+                            <div class="text-lg font-bold text-white">${c.posts.toLocaleString()}</div>
+                            <div class="text-xs text-gray-500">Mesaj</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderForumTopics() {
+        const container = document.getElementById('forumTopicsList');
+        container.innerHTML = topicsData.map(t => `
+            <div class="glass rounded-xl p-4 card-hover cursor-pointer" onclick="openTopic(${t.id})">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br ${t.avatarColor} flex items-center justify-center font-bold text-sm text-white flex-shrink-0">${t.avatar}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center space-x-2 mb-0.5">
+                            ${t.pinned ? '<span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-0.5 rounded-full"><i class="fas fa-thumbtack mr-1"></i>Sabitlenmiş</span>' : ''}
+                            ${t.hot ? '<span class="text-xs bg-orange-500/20 text-orange-400 px-2 py-0.5 rounded-full"><i class="fas fa-fire mr-1"></i>Popüler</span>' : ''}
+                        </div>
+                        <h3 class="font-bold text-white text-sm hover:text-cyan-400 transition truncate">${t.title}</h3>
+                        <div class="flex items-center space-x-3 mt-1 text-xs text-gray-500">
+                            <span class="font-medium text-gray-300">${t.author}</span>
+                            <span class="px-2 py-0.5 rounded-full ${t.authorBadge} text-white text-[10px]">${t.authorBadge.replace('badge-','').charAt(0).toUpperCase() + t.authorBadge.replace('badge-','').slice(1)}</span>
+                            <span><i class="fas fa-clock mr-1"></i>${t.time}</span>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex space-x-6 text-center flex-shrink-0">
+                        <div>
+                            <div class="text-sm font-bold text-white">${t.replies}</div>
+                            <div class="text-[10px] text-gray-500">Yanıt</div>
+                        </div>
+                        <div>
+                            <div class="text-sm font-bold text-white">${t.views.toLocaleString()}</div>
+                            <div class="text-[10px] text-gray-500">Görüntülenme</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderServerList() {
+        const container = document.getElementById('serverList');
+        container.innerHTML = serversData.map((s, i) => `
+            <div class="glass rounded-2xl p-5 card-hover ${s.featured ? 'glow-green border border-green-500/20' : ''}">
+                <div class="flex items-center space-x-4">
+                    <div class="text-2xl font-black ${i === 0 ? 'text-yellow-400' : i === 1 ? 'text-gray-300' : i === 2 ? 'text-amber-600' : 'text-gray-500'} w-8 text-center">#${i+1}</div>
+                    <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center font-bold text-white text-xl flex-shrink-0">${s.name[0]}</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="flex items-center space-x-2 mb-1">
+                            <h3 class="font-bold text-white text-lg">${s.name}</h3>
+                            ${s.featured ? '<span class="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400"><i class="fas fa-star mr-1"></i>Öne Çıkan</span>' : ''}
+                            <span class="flex items-center text-xs ${s.status === 'online' ? 'text-green-400' : 'text-red-400'}">
+                                <span class="w-2 h-2 rounded-full ${s.status === 'online' ? 'bg-green-400' : 'bg-red-400'} mr-1"></span>${s.status === 'online' ? 'Çevrimiçi' : 'Çevrimdışı'}
+                            </span>
+                        </div>
+                        <p class="text-sm text-gray-400 mb-2">${s.desc}</p>
+                        <div class="flex flex-wrap gap-1 mb-2">
+                            ${s.tags.map(tag => `<span class="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400">${tag}</span>`).join('')}
+                        </div>
+                        <div class="flex items-center space-x-4 text-sm text-gray-400">
+                            <span><i class="fas fa-users mr-1"></i>${s.players}</span>
+                            <span><i class="fas fa-gamepad mr-1"></i>${s.mode}</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center space-y-2 flex-shrink-0">
+                        <button class="vote-btn p-3 bg-white/5 rounded-xl hover:bg-yellow-500/20 transition" onclick="voteServer(${s.id}, this)">
+                            <i class="fas fa-arrow-up text-lg text-gray-400"></i>
+                        </button>
+                        <span class="text-lg font-bold text-yellow-400">${s.votes.toLocaleString()}</span>
+                        <span class="text-[10px] text-gray-500">OY</span>
+                        <button class="text-sm bg-green-600/20 text-green-400 px-3 py-1.5 rounded-lg hover:bg-green-600/30 transition" onclick="copyIP('${s.ip}')">
+                            <i class="fas fa-copy mr-1"></i>IP Kopyala
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderResources(filter = 'all') {
+        const container = document.getElementById('resourceGrid');
+        const filtered = filter === 'all' ? resourcesData : resourcesData.filter(r => r.type === filter);
+        container.innerHTML = filtered.map(r => `
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <div class="h-32 bg-gradient-to-br ${r.color} flex items-center justify-center">
+                    <i class="${r.icon} text-5xl text-white/50"></i>
+                </div>
+                <div class="p-5">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400 capitalize">${r.type}</span>
+                        <span class="text-xs text-gray-500">${r.version}</span>
+                    </div>
+                    <h3 class="font-bold text-white text-lg mb-1">${r.name}</h3>
+                    <p class="text-sm text-gray-400 mb-3">${r.desc}</p>
+                    <div class="flex items-center justify-between text-sm mb-3">
+                        <span class="text-gray-400"><i class="fas fa-user mr-1"></i>${r.author}</span>
+                        <div class="flex items-center text-yellow-400">
+                            ${'<i class="fas fa-star text-xs mr-0.5"></i>'.repeat(Math.floor(r.rating))}
+                            <span class="ml-1 text-xs">${r.rating}</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-xs"><i class="fas fa-download mr-1"></i>${r.downloads.toLocaleString()}</span>
+                        <span class="font-bold ${r.price === 0 ? 'text-green-400' : 'text-orange-400'}">${r.price === 0 ? 'Ücretsiz' : '₺' + r.price}</span>
+                    </div>
+                    <button class="w-full mt-3 ${r.price === 0 ? 'btn-green' : 'btn-primary'} py-2.5 rounded-xl font-bold text-white text-sm">
+                        <i class="fas fa-${r.price === 0 ? 'download' : 'shopping-cart'} mr-1"></i>${r.price === 0 ? 'İndir' : 'Satın Al'}
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderMarket() {
+        const container = document.getElementById('marketGrid');
+        container.innerHTML = marketData.map(m => `
+            <div class="glass rounded-2xl overflow-hidden card-hover">
+                <div class="h-40 bg-gradient-to-br ${m.color} flex items-center justify-center relative">
+                    <i class="${m.image} text-6xl text-white/30"></i>
+                    <div class="absolute top-3 right-3 bg-black/50 px-3 py-1 rounded-full text-sm font-bold text-white">₺${m.price}</div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-white text-lg mb-1">${m.name}</h3>
+                    <div class="flex items-center justify-between text-sm mb-3">
+                        <span class="text-gray-400"><i class="fas fa-user mr-1"></i>${m.seller}</span>
+                        <div class="flex items-center text-yellow-400">
+                            ${'<i class="fas fa-star text-xs mr-0.5"></i>'.repeat(Math.floor(m.rating))}
+                            <span class="ml-1 text-xs">${m.rating}</span>
+                        </div>
+                    </div>
+                    <div class="text-xs text-gray-500 mb-3"><i class="fas fa-shopping-bag mr-1"></i>${m.sales} satış</div>
+                    <button class="w-full btn-primary py-2.5 rounded-xl font-bold text-white text-sm">
+                        <i class="fas fa-shopping-cart mr-1"></i>Satın Al
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function renderConversations() {
+        const container = document.getElementById('conversationList');
+        container.innerHTML = conversations.map((c, i) => `
+            <div class="p-3 hover:bg-white/5 cursor-pointer border-b border-white/5 flex items-center space-x-3 ${i === 0 ? 'bg-white/5' : ''}" onclick="selectConversation(${i})">
+                <div class="relative flex-shrink-0">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br ${c.color} flex items-center justify-center font-bold text-xs text-white">${c.avatar}</div>
+                    ${c.online ? '<div class="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-400 rounded-full border-2 border-hytale-card"></div>' : ''}
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center justify-between">
+                        <p class="text-sm font-bold text-white truncate">${c.name}</p>
+                        <span class="text-[10px] text-gray-500">${c.time}</span>
+                    </div>
+                    <p class="text-xs text-gray-400 truncate">${c.lastMsg}</p>
+                </div>
+                ${c.unread > 0 ? `<span class="w-5 h-5 bg-cyan-500 rounded-full text-[10px] flex items-center justify-center font-bold text-white flex-shrink-0">${c.unread}</span>` : ''}
+            </div>
+        `).join('');
+    }
+
+    function renderChatMessages() {
+        const container = document.getElementById('chatMessages');
+        container.innerHTML = chatMessagesData.map(m => `
+            <div class="flex ${m.mine ? 'justify-end' : 'justify-start'}">
+                <div class="max-w-xs lg:max-w-md ${m.mine ? 'bg-cyan-600/30 rounded-tl-xl rounded-tr-xl rounded-bl-xl' : 'bg-white/5 rounded-tl-xl rounded-tr-xl rounded-br-xl'} px-4 py-3">
+                    <p class="text-sm">${m.msg}</p>
+                    <p class="text-[10px] text-gray-500 mt-1 ${m.mine ? 'text-right' : ''}">${m.time}</p>
+                </div>
+            </div>
+        `).join('');
+        container.scrollTop = container.scrollHeight;
+    }
+
+    function renderLeaderboard() {
+        const container = document.getElementById('leaderboardTable');
+        container.innerHTML = leaderboardData.map(l => `
+            <div class="flex items-center p-4 hover:bg-white/5 transition cursor-pointer" onclick="navigateTo('profile')">
+                <div class="w-10 text-center flex-shrink-0">
+                    ${l.rank <= 3 ? `<i class="fas fa-trophy ${l.rank === 1 ? 'text-yellow-400 text-xl' : l.rank === 2 ? 'text-gray-300 text-lg' : 'text-amber-600 text-base'}"></i>` : `<span class="text-gray-500 font-bold">#${l.rank}</span>`}
+                </div>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br ${l.color} flex items-center justify-center font-bold text-sm text-white flex-shrink-0 mx-3">${l.name[0]}</div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center space-x-2">
+                        <p class="font-bold text-white text-sm">${l.name}</p>
+                        <span class="text-xs px-2 py-0.5 rounded-full ${l.badgeClass} text-white">${l.badge}</span>
+                    </div>
+                    <p class="text-xs text-gray-500">Lv.${l.level}</p>
+                </div>
+                <div class="hidden md:flex space-x-8 text-center flex-shrink-0">
+                    <div>
+                        <div class="text-sm font-bold text-cyan-400">${l.xp.toLocaleString()}</div>
+                        <div class="text-[10px] text-gray-500">XP</div>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-white">${l.messages.toLocaleString()}</div>
+                        <div class="text-[10px] text-gray-500">Mesaj</div>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-red-400">${l.likes.toLocaleString()}</div>
+                        <div class="text-[10px] text-gray-500">Beğeni</div>
+                    </div>
+                    <div>
+                        <div class="text-sm font-bold text-green-400">${l.resources}</div>
+                        <div class="text-[10px] text-gray-500">Kaynak</div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+
+    // ===== TOPIC DETAIL =====
+    function openTopic(id) {
+        const topic = topicsData.find(t => t.id === id);
+        if (!topic) return;
+
+        const detail = document.getElementById('topicDetail');
+        detail.innerHTML = `
+            <button onclick="navigateTo('forum')" class="text-cyan-400 hover:text-cyan-300 text-sm mb-4 inline-block"><i class="fas fa-arrow-left mr-1"></i>Foruma Dön</button>
+            <div class="glass rounded-2xl p-6 mb-6">
+                <div class="flex items-center space-x-2 mb-4">
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-white/5 text-gray-400">${topic.category}</span>
+                    ${topic.pinned ? '<span class="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400"><i class="fas fa-thumbtack mr-1"></i>Sabitlenmiş</span>' : ''}
+                </div>
+                <h1 class="text-2xl font-black text-white mb-4">${topic.title}</h1>
+                <div class="flex items-center space-x-4 mb-6">
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-br ${topic.avatarColor} flex items-center justify-center font-bold text-lg text-white">${topic.avatar}</div>
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-white">${topic.author}</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full ${topic.authorBadge} text-white">${topic.authorBadge.replace('badge-','')}</span>
+                        </div>
+                        <span class="text-xs text-gray-500">${topic.time} • ${topic.views.toLocaleString()} görüntülenme</span>
+                    </div>
+                </div>
+                <div class="text-gray-300 leading-relaxed mb-6">
+                    <p>Merhaba arkadaşlar! 👋</p>
+                    <br>
+                    <p>Bu konuda Hytale hakkındaki son gelişmeleri ve beta süreci hakkında bildiklerimi paylaşmak istiyorum. Hypixel Studios'un son açıklamalarına göre, oyunun geliştirme süreci devam ediyor ve çok heyecan verici yenilikler bizi bekliyor.</p>
+                    <br>
+                    <p><strong>Son gelişmeler:</strong></p>
+                    <ul class="list-disc pl-6 mt-2 space-y-1">
+                        <li>Yeni savaş sistemi tamamen yeniden tasarlandı</li>
+                        <li>Model Maker aracı büyük güncellemeler aldı</li>
+                        <li>Multiplayer altyapısı optimize edildi</li>
+                        <li>Yeni biyomlar ve yaratıklar eklendi</li>
+                    </ul>
+                    <br>
+                    <p>Siz ne düşünüyorsunuz? Yorumlarınızı bekliyorum! 🎮</p>
+                </div>
+                <div class="flex items-center space-x-4 text-sm border-t border-white/10 pt-4">
+                    <button class="flex items-center space-x-1 text-gray-400 hover:text-red-400 transition" onclick="this.classList.toggle('text-red-400')"><i class="fas fa-heart"></i><span>${topic.likes}</span></button>
+                    <button class="flex items-center space-x-1 text-gray-400 hover:text-cyan-400 transition"><i class="fas fa-share"></i><span>Paylaş</span></button>
+                    <button class="flex items-center space-x-1 text-gray-400 hover:text-yellow-400 transition"><i class="fas fa-bookmark"></i><span>Kaydet</span></button>
+                    <button class="flex items-center space-x-1 text-gray-400 hover:text-red-400 transition"><i class="fas fa-flag"></i><span>Rapor</span></button>
+                </div>
+            </div>
+
+            <!-- Replies -->
+            <h2 class="text-xl font-bold text-white mb-4"><i class="fas fa-comments mr-2"></i>${topic.replies} Yanıt</h2>
+            <div class="space-y-4 mb-6">
+                <div class="glass rounded-xl p-5">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center font-bold text-sm text-white flex-shrink-0">G</div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="font-bold text-white text-sm">GuideGuru</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full badge-mod text-white">Moderatör</span>
+                                <span class="text-xs text-gray-500">1 saat önce</span>
+                            </div>
+                            <p class="text-sm text-gray-300">Harika bir özet olmuş! Ben de ek olarak şunu belirteyim: Hytale'ın modding araçları gerçekten çığır açıcı olacak. Model Maker ile oyuncular kendi içeriklerini çok kolay bir şekilde oluşturabilecekler.</p>
+                            <div class="flex items-center space-x-3 mt-3 text-xs text-gray-500">
+                                <button class="hover:text-red-400 transition"><i class="fas fa-heart mr-1"></i>24</button>
+                                <button class="hover:text-cyan-400 transition"><i class="fas fa-reply mr-1"></i>Yanıtla</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl p-5">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-red-400 to-pink-500 flex items-center justify-center font-bold text-sm text-white flex-shrink-0">P</div>
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="font-bold text-white text-sm">PvPMaster</span>
+                                <span class="text-xs px-2 py-0.5 rounded-full badge-member text-white">Üye</span>
+                                <span class="text-xs text-gray-500">45 dk önce</span>
+                            </div>
+                            <p class="text-sm text-gray-300">Ben en çok yeni savaş sistemini merak ediyorum! PvP mekanikleri nasıl olacak acaba? Umarım skill-based bir sistem getirirler. 🤞</p>
+                            <div class="flex items-center space-x-3 mt-3 text-xs text-gray-500">
+                                <button class="hover:text-red-400 transition"><i class="fas fa-heart mr-1"></i>18</button>
+                                <button class="hover:text-cyan-400 transition"><i class="fas fa-reply mr-1"></i>Yanıtla</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reply Box -->
+            <div class="glass rounded-xl p-5">
+                <h3 class="font-bold text-white mb-3">Yanıt Yaz</h3>
+                <div contenteditable="true" class="rich-editor mb-3" placeholder="Yanıtınızı yazın..."></div>
+                <div class="flex justify-end">
+                    <button class="btn-primary px-6 py-2.5 rounded-xl font-bold text-white text-sm" onclick="showToast('Yanıtınız gönderildi!', 'success')">
+                        <i class="fas fa-paper-plane mr-1"></i>Yanıtla
+                    </button>
+                </div>
+            </div>
+        `;
+
+        navigateTo('topic');
+    }
+
+
+    // ===== INTERACTIONS =====
+    function copyIP(ip) {
+        navigator.clipboard.writeText(ip).then(() => {
+            showToast(`IP kopyalandı: ${ip}`, 'success');
+        }).catch(() => {
+            showToast(`IP: ${ip}`, 'info');
+        });
+    }
+
+    function voteServer(id, btn) {
+        const server = serversData.find(s => s.id === id);
+        if (server) {
+            server.votes++;
+            btn.classList.add('voted');
+            showToast('Oyunuz kaydedildi! ✨', 'success');
+            renderServerList();
+            renderFeaturedServers();
+        }
+    }
+
+    function filterResources(type, btn) {
+        document.querySelectorAll('#page-resources .tab-active').forEach(t => {
+            t.classList.remove('tab-active');
+            t.classList.add('text-gray-400');
+        });
+        if (btn) {
+            btn.classList.add('tab-active');
+            btn.classList.remove('text-gray-400');
+        }
+        renderResources(type);
+    }
+
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        if (input.value.trim()) {
+            chatMessagesData.push({ from: 'Ben', msg: input.value, time: new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'}), mine: true });
+            renderChatMessages();
+            input.value = '';
+
+            // Simulate reply
+            setTimeout(() => {
+                chatMessagesData.push({ from: 'EliteModer', msg: 'Teşekkürler, mesajını aldım! 👍', time: new Date().toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'}), mine: false });
+                renderChatMessages();
+            }, 2000);
+        }
+    }
+
+    function selectConversation(index) {
+        showToast(`${conversations[index].name} ile sohbet açıldı`, 'info');
+    }
+
+    function toggleNotifications() {
+        const panel = document.getElementById('notifPanel');
+        panel.classList.toggle('hidden');
+        document.getElementById('notifCount').textContent = '0';
+    }
+
+    function toggleMessages() {
+        navigateTo('messages');
+    }
+
+    function toggleMobileMenu() {
+        document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+
+
+    // ===== MODALS =====
+    function showNewTopicModal() {
+        document.getElementById('newTopicModal').classList.remove('hidden');
+    }
+    function showAddServerModal() {
+        document.getElementById('addServerModal').classList.remove('hidden');
+    }
+    function showUploadResourceModal() {
+        document.getElementById('uploadResourceModal').classList.remove('hidden');
+    }
+    function closeModal(id) {
+        document.getElementById(id).classList.add('hidden');
+    }
+
+    function createTopic() {
+        const title = document.getElementById('topicTitle').value;
+        if (title.trim()) {
+            topicsData.unshift({
+                id: topicsData.length + 1,
+                title: title,
+                author: 'HytaleTR_Admin',
+                authorBadge: 'badge-admin',
+                avatar: 'H',
+                avatarColor: 'from-cyan-400 to-purple-500',
+                category: 'Hytale Genel',
+                replies: 0,
+                views: 1,
+                likes: 0,
+                time: 'Az önce',
+                pinned: false,
+                hot: false
+            });
+            renderLatestTopics();
+            renderForumTopics();
+            closeModal('newTopicModal');
+            showToast('Konunuz başarıyla oluşturuldu! 🎉', 'success');
+            document.getElementById('topicTitle').value = '';
+        } else {
+            showToast('Lütfen bir başlık girin', 'error');
+        }
+    }
+
+    function addServer() {
+        closeModal('addServerModal');
+        showToast('Sunucunuz incelenmek üzere gönderildi! 🔍', 'success');
+    }
+
+    function uploadResource() {
+        closeModal('uploadResourceModal');
+        showToast('Kaynağınız başarıyla yüklendi! 🚀', 'success');
+    }
+
+
+    // ===== TOAST NOTIFICATIONS =====
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toast-container');
+        const colors = {
+            success: 'border-green-500 bg-green-500/10',
+            error: 'border-red-500 bg-red-500/10',
+            info: 'border-cyan-500 bg-cyan-500/10',
+            warning: 'border-yellow-500 bg-yellow-500/10'
+        };
+        const icons = {
+            success: 'fas fa-check-circle text-green-400',
+            error: 'fas fa-times-circle text-red-400',
+            info: 'fas fa-info-circle text-cyan-400',
+            warning: 'fas fa-exclamation-circle text-yellow-400'
+        };
+
+        const toast = document.createElement('div');
+        toast.className = `toast glass-strong border-l-4 ${colors[type]} rounded-xl px-4 py-3 flex items-center space-x-3 min-w-72`;
+        toast.innerHTML = `<i class="${icons[type]}"></i><span class="text-sm text-white">${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+
+    // ===== SEARCH =====
+    function handleSearch(query) {
+        const results = document.getElementById('searchResults');
+        if (query.length < 2) {
+            results.classList.add('hidden');
+            return;
+        }
+
+        const q = query.toLowerCase();
+        const matchedTopics = topicsData.filter(t => t.title.toLowerCase().includes(q)).slice(0, 3);
+        const matchedServers = serversData.filter(s => s.name.toLowerCase().includes(q)).slice(0, 2);
+        const matchedResources = resourcesData.filter(r => r.name.toLowerCase().includes(q)).slice(0, 2);
+
+        if (matchedTopics.length === 0 && matchedServers.length === 0 && matchedResources.length === 0) {
+            results.innerHTML = '<div class="p-4 text-center text-gray-500 text-sm">Sonuç bulunamadı</div>';
+        } else {
+            let html = '';
+            if (matchedTopics.length) {
+                html += '<div class="px-3 py-2 text-xs text-gray-500 font-bold">KONULAR</div>';
+                html += matchedTopics.map(t => `
+                    <div class="px-3 py-2 hover:bg-white/5 cursor-pointer flex items-center space-x-2" onclick="openTopic(${t.id}); document.getElementById('searchResults').classList.add('hidden');">
+                        <i class="fas fa-comment text-cyan-400 text-xs"></i>
+                        <span class="text-sm truncate">${t.title}</span>
+                    </div>
+                `).join('');
+            }
+            if (matchedServers.length) {
+                html += '<div class="px-3 py-2 text-xs text-gray-500 font-bold border-t border-white/5">SUNUCULAR</div>';
+                html += matchedServers.map(s => `
+                    <div class="px-3 py-2 hover:bg-white/5 cursor-pointer flex items-center space-x-2" onclick="navigateTo('servers'); document.getElementById('searchResults').classList.add('hidden');">
+                        <i class="fas fa-server text-green-400 text-xs"></i>
+                        <span class="text-sm">${s.name}</span>
+                    </div>
+                `).join('');
+            }
+            if (matchedResources.length) {
+                html += '<div class="px-3 py-2 text-xs text-gray-500 font-bold border-t border-white/5">KAYNAKLAR</div>';
+                html += matchedResources.map(r => `
+                    <div class="px-3 py-2 hover:bg-white/5 cursor-pointer flex items-center space-x-2" onclick="navigateTo('resources'); document.getElementById('searchResults').classList.add('hidden');">
+                        <i class="fas fa-puzzle-piece text-purple-400 text-xs"></i>
+                        <span class="text-sm">${r.name}</span>
+                    </div>
+                `).join('');
+            }
+            results.innerHTML = html;
+        }
+
+        results.classList.remove('hidden');
+    }
+
+
+    // ===== PARTICLES =====
+    function createParticles() {
+        const container = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.opacity = Math.random() * 0.3 + 0.1;
+            container.appendChild(particle);
+        }
+    }
+
+
+    // ===== LIVE COUNTER ANIMATION =====
+    function animateCounter() {
+        const el = document.getElementById('onlineCount');
+        if (el) {
+            const base = 1247;
+            const variation = Math.floor(Math.random() * 20) - 10;
+            el.textContent = (base + variation).toLocaleString();
+        }
+    }
+
+
+    // ===== CLOSE DROPDOWNS ON OUTSIDE CLICK =====
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('#notifArea')) {
+            document.getElementById('notifPanel').classList.add('hidden');
+        }
+        if (!e.target.closest('#globalSearch') && !e.target.closest('#searchResults')) {
+            document.getElementById('searchResults').classList.add('hidden');
+        }
+    });
+
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', function() {
+        createParticles();
+        renderLatestTopics();
+        renderOnlineUsers();
+        renderTopMembers();
+        renderRecentResources();
+        renderFeaturedServers();
+        renderForumCategories();
+        renderForumTopics();
+        renderServerList();
+        renderResources();
+        renderMarket();
+        renderConversations();
+        renderChatMessages();
+        renderLeaderboard();
+
+        // Live counter update
+        setInterval(animateCounter, 5000);
+
+        // Welcome toast
+        setTimeout(() => {
+            showToast('HytaleTR\'ye hoş geldiniz! 🎮', 'success');
+        }, 1000);
+    });
+    </script>
+
+</body>
+</html>
