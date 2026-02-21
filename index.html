@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" class="scroll-smooth">
+<html lang="tr" class="scroll-smooth" id="html-root">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,30 +93,98 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: rgba(17, 17, 17, 0.6);
+            --bg-card-strong: rgba(17, 17, 17, 0.8);
+            --bg-hover: rgba(255, 255, 255, 0.02);
+            --border-subtle: rgba(139, 92, 246, 0.1);
+            --border-muted: rgba(255, 255, 255, 0.05);
+            --text-primary: #e2e8f0;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --text-faint: #475569;
+            --scrollbar-track: #0a0a0a;
+            --grid-line: rgba(139, 92, 246, 0.03);
+        }
+
+        [data-theme="midnight"] {
+            --bg-primary: #0c1222;
+            --bg-secondary: #131d35;
+            --bg-card: rgba(19, 29, 53, 0.7);
+            --bg-card-strong: rgba(19, 29, 53, 0.85);
+            --bg-hover: rgba(255, 255, 255, 0.03);
+            --border-subtle: rgba(99, 130, 255, 0.15);
+            --border-muted: rgba(255, 255, 255, 0.06);
+            --text-primary: #d4dff7;
+            --text-secondary: #8b9dc3;
+            --text-muted: #5a7099;
+            --text-faint: #3f5478;
+            --scrollbar-track: #0c1222;
+            --grid-line: rgba(99, 130, 255, 0.03);
+        }
+
+        [data-theme="amoled"] {
+            --bg-primary: #000000;
+            --bg-secondary: #050505;
+            --bg-card: rgba(8, 8, 8, 0.8);
+            --bg-card-strong: rgba(8, 8, 8, 0.95);
+            --bg-hover: rgba(255, 255, 255, 0.02);
+            --border-subtle: rgba(139, 92, 246, 0.12);
+            --border-muted: rgba(255, 255, 255, 0.04);
+            --text-primary: #f0f0f0;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --text-faint: #333333;
+            --scrollbar-track: #000000;
+            --grid-line: rgba(139, 92, 246, 0.02);
+        }
+
+        [data-theme="cyberpunk"] {
+            --bg-primary: #0d0016;
+            --bg-secondary: #140020;
+            --bg-card: rgba(20, 0, 32, 0.7);
+            --bg-card-strong: rgba(20, 0, 32, 0.85);
+            --bg-hover: rgba(255, 0, 255, 0.03);
+            --border-subtle: rgba(255, 0, 200, 0.15);
+            --border-muted: rgba(255, 255, 255, 0.06);
+            --text-primary: #f0d4ff;
+            --text-secondary: #b888d0;
+            --text-muted: #7d4a96;
+            --text-faint: #5a2d70;
+            --scrollbar-track: #0d0016;
+            --grid-line: rgba(255, 0, 200, 0.03);
+        }
+
         body {
-            background: #0a0a0a;
+            background: var(--bg-primary);
             font-family: 'Inter', system-ui, sans-serif;
-            color: #e2e8f0;
+            color: var(--text-primary);
             overflow-x: hidden;
+            transition: background-color 0.5s ease, color 0.3s ease;
         }
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-track { background: var(--scrollbar-track); }
         ::-webkit-scrollbar-thumb {
             background: linear-gradient(180deg, #8b5cf6, #06b6d4);
             border-radius: 3px;
         }
 
         .glass {
-            background: rgba(17, 17, 17, 0.6);
+            background: var(--bg-card);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--border-subtle);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
         }
         .glass-strong {
-            background: rgba(17, 17, 17, 0.8);
+            background: var(--bg-card-strong);
             backdrop-filter: blur(30px);
             -webkit-backdrop-filter: blur(30px);
-            border: 1px solid rgba(139, 92, 246, 0.15);
+            border: 1px solid var(--border-subtle);
+            transition: background-color 0.4s ease, border-color 0.4s ease;
         }
 
         .gradient-text {
@@ -153,8 +221,8 @@
 
         .hero-grid {
             background-image:
-                linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
             background-size: 60px 60px;
         }
 
@@ -251,6 +319,71 @@
             75% { transform: translateX(-4px); }
         }
 
+        /* Profile Dropdown */
+        .profile-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            min-width: 300px;
+            z-index: 100;
+        }
+        .profile-stat-card {
+            background: var(--bg-hover);
+            border: 1px solid var(--border-muted);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .profile-stat-card:hover {
+            border-color: var(--border-subtle);
+        }
+        .profile-menu-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .profile-menu-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .profile-menu-item.danger:hover {
+            background: rgba(239, 68, 68, 0.08);
+            color: #f87171;
+        }
+
+        /* Theme Selector */
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .theme-option:hover {
+            background: var(--bg-hover);
+        }
+        .theme-option.active {
+            border-color: #8b5cf6;
+            background: rgba(139, 92, 246, 0.08);
+        }
+        .theme-swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            border: 2px solid rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
         /* Checkbox fix */
         input[type="checkbox"]:checked + div {
             background: #8b5cf6;
@@ -261,7 +394,7 @@
         }
     </style>
 </head>
-<body class="font-sans">
+<body class="font-sans transition-colors duration-500">
 
     <!-- ambient line removed for cleaner look -->
 
@@ -295,14 +428,140 @@
 
                 <!-- CTA & Mobile Menu -->
                 <div class="flex items-center gap-2 sm:gap-3">
-                    <button onclick="openAuthModal('login')" class="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
-                        Giriş
-                    </button>
-                    <button onclick="openAuthModal('signup')" class="hidden sm:flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold hover:shadow-lg hover:shadow-neon-purple/25 transform hover:scale-105 transition-all duration-300">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/></svg>
-                        Kayıt Ol
-                    </button>
+                    <!-- Theme Toggle -->
+                    <div class="relative">
+                        <button onclick="toggleThemePanel()" id="theme-toggle-btn" class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10 transition-all duration-300" title="Tema">
+                            <svg class="w-4 h-4 sm:w-[18px] sm:h-[18px] text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"/></svg>
+                        </button>
+                        <!-- Theme Panel -->
+                        <div id="theme-panel" class="hidden profile-dropdown right-0 sm:right-auto sm:left-1/2 sm:-translate-x-1/2" style="min-width: 220px;">
+                            <div class="glass-strong rounded-2xl p-3 shadow-2xl shadow-black/50 animate-slide-down">
+                                <p class="text-[10px] uppercase tracking-wider text-gray-500 px-3 py-1.5 font-semibold">Tema Seç</p>
+                                <div class="space-y-1 mt-1">
+                                    <button onclick="setTheme('dark')" class="theme-option w-full active" data-theme-option="dark">
+                                        <div class="theme-swatch" style="background: #0a0a0a;"></div>
+                                        <div class="text-left"><span class="text-sm text-white font-medium">Dark</span><p class="text-[10px] text-gray-500">Varsayılan karanlık</p></div>
+                                    </button>
+                                    <button onclick="setTheme('midnight')" class="theme-option w-full" data-theme-option="midnight">
+                                        <div class="theme-swatch" style="background: #0c1222;"></div>
+                                        <div class="text-left"><span class="text-sm text-white font-medium">Midnight</span><p class="text-[10px] text-gray-500">Gece mavisi</p></div>
+                                    </button>
+                                    <button onclick="setTheme('amoled')" class="theme-option w-full" data-theme-option="amoled">
+                                        <div class="theme-swatch" style="background: #000000; border-color: rgba(255,255,255,0.2);"></div>
+                                        <div class="text-left"><span class="text-sm text-white font-medium">AMOLED</span><p class="text-[10px] text-gray-500">Tam siyah</p></div>
+                                    </button>
+                                    <button onclick="setTheme('cyberpunk')" class="theme-option w-full" data-theme-option="cyberpunk">
+                                        <div class="theme-swatch" style="background: linear-gradient(135deg, #0d0016, #2d004a);"></div>
+                                        <div class="text-left"><span class="text-sm text-white font-medium">Cyberpunk</span><p class="text-[10px] text-gray-500">Neon mor</p></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Auth Buttons (Logged Out) -->
+                    <div id="nav-auth-buttons" class="hidden sm:flex items-center gap-2">
+                        <button onclick="openAuthModal('login')" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
+                            Giriş
+                        </button>
+                        <button onclick="openAuthModal('signup')" class="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold hover:shadow-lg hover:shadow-neon-purple/25 transform hover:scale-105 transition-all duration-300">
+                            Kayıt Ol
+                        </button>
+                    </div>
+
+                    <!-- Profile (Logged In - Hidden by default) -->
+                    <div id="nav-profile" class="relative hidden">
+                        <button onclick="toggleProfileDropdown()" id="profile-btn" class="flex items-center gap-2.5 px-2 py-1.5 rounded-xl hover:bg-white/5 transition-all duration-300">
+                            <div class="relative">
+                                <div id="nav-avatar" class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center text-xs sm:text-sm font-bold text-white">
+                                    PV
+                                </div>
+                                <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2" style="border-color: var(--bg-primary);"></span>
+                            </div>
+                            <div class="hidden sm:block text-left">
+                                <p id="nav-username" class="text-sm font-semibold text-white leading-none">pavlov_pro</p>
+                                <p class="text-[10px] text-gray-500 mt-0.5">Çevrimiçi</p>
+                            </div>
+                            <svg class="w-3.5 h-3.5 text-gray-500 hidden sm:block transition-transform duration-200" id="profile-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+
+                        <!-- Profile Dropdown -->
+                        <div id="profile-dropdown" class="hidden profile-dropdown">
+                            <div class="glass-strong rounded-2xl shadow-2xl shadow-black/50 animate-slide-down overflow-hidden">
+                                
+                                <!-- Profile Header -->
+                                <div class="p-5 border-b border-white/5">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div id="dropdown-avatar" class="w-12 h-12 rounded-2xl bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center text-lg font-bold text-white">
+                                            PV
+                                        </div>
+                                        <div>
+                                            <p id="dropdown-username" class="text-base font-bold text-white">pavlov_pro</p>
+                                            <p id="dropdown-email" class="text-xs text-gray-500">kullanici@email.com</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Mini Stats -->
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <div class="profile-stat-card">
+                                            <p class="text-lg font-bold gradient-text">2,450</p>
+                                            <p class="text-[10px] text-gray-500 mt-0.5">Toplam Puan</p>
+                                        </div>
+                                        <div class="profile-stat-card">
+                                            <p class="text-lg font-bold text-white">147</p>
+                                            <p class="text-[10px] text-gray-500 mt-0.5">Maç</p>
+                                        </div>
+                                        <div class="profile-stat-card">
+                                            <p class="text-lg font-bold text-emerald-400">68%</p>
+                                            <p class="text-[10px] text-gray-500 mt-0.5">Kazanma</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Level Progress -->
+                                <div class="px-5 py-3 border-b border-white/5">
+                                    <div class="flex items-center justify-between mb-1.5">
+                                        <span class="text-xs text-gray-400 font-medium">Seviye 24</span>
+                                        <span class="text-[10px] text-gray-600">2,450 / 3,000 XP</span>
+                                    </div>
+                                    <div class="w-full h-1.5 rounded-full bg-white/5 overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-neon-purple to-neon-cyan transition-all duration-1000" style="width: 82%;"></div>
+                                    </div>
+                                </div>
+
+                                <!-- Menu Items -->
+                                <div class="p-2">
+                                    <button onclick="closeProfileDropdown()" class="profile-menu-item w-full">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                                        <span>Profilim</span>
+                                    </button>
+                                    <button onclick="closeProfileDropdown()" class="profile-menu-item w-full">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+                                        <span>İstatistiklerim</span>
+                                    </button>
+                                    <button onclick="closeProfileDropdown()" class="profile-menu-item w-full">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M18.75 4.236c.982.143 1.954.317 2.916.52A6.003 6.003 0 0016.27 9.728M18.75 4.236V4.5c0 2.108-.966 3.99-2.48 5.228m0 0a6.003 6.003 0 01-5.54 0"/></svg>
+                                        <span>Başarımlarım</span>
+                                        <span class="ml-auto px-1.5 py-0.5 rounded-md bg-neon-purple/20 text-neon-purple text-[10px] font-semibold">3 Yeni</span>
+                                    </button>
+                                    <button onclick="closeProfileDropdown()" class="profile-menu-item w-full">
+                                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                        <span>Ayarlar</span>
+                                    </button>
+                                </div>
+
+                                <!-- Logout -->
+                                <div class="p-2 border-t border-white/5">
+                                    <button onclick="handleLogout()" class="profile-menu-item danger w-full">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/></svg>
+                                        <span>Çıkış Yap</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors" onclick="toggleMobileMenu()">
                         <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                     </button>
@@ -315,22 +574,50 @@
                 <a href="#games" class="block px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" onclick="closeMobileMenu()">Projeler</a>
                 <a href="#videos" class="block px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" onclick="closeMobileMenu()">Videolar</a>
                 <a href="#leaderboard" class="block px-4 py-3 text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors" onclick="closeMobileMenu()">Sıralama</a>
-                <div class="mt-3 pt-3 border-t border-white/5 space-y-2">
+                <!-- Mobile Auth (Logged Out) -->
+                <div id="mobile-auth-buttons" class="mt-3 pt-3 border-t border-white/5 space-y-2">
                     <button onclick="openAuthModal('login'); closeMobileMenu();" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 text-white text-sm font-medium hover:bg-white/10 transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9"/></svg>
                         Giriş Yap
                     </button>
                     <button onclick="openAuthModal('signup'); closeMobileMenu();" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-neon-purple to-neon-cyan text-white text-sm font-semibold">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"/></svg>
                         Kayıt Ol
                     </button>
+                </div>
+                <!-- Mobile Profile (Logged In) -->
+                <div id="mobile-profile-section" class="hidden mt-3 pt-3 border-t border-white/5">
+                    <div class="flex items-center gap-3 px-4 py-3 mb-2">
+                        <div id="mobile-avatar" class="w-10 h-10 rounded-xl bg-gradient-to-br from-neon-purple to-neon-cyan flex items-center justify-center text-sm font-bold text-white">PV</div>
+                        <div>
+                            <p id="mobile-username" class="text-sm font-semibold text-white">pavlov_pro</p>
+                            <p class="text-[10px] text-gray-500">Seviye 24 · 2,450 XP</p>
+                        </div>
+                    </div>
+                    <button onclick="closeMobileMenu()" class="profile-menu-item w-full">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                        <span>Profilim</span>
+                    </button>
+                    <button onclick="closeMobileMenu()" class="profile-menu-item w-full">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/></svg>
+                        <span>İstatistiklerim</span>
+                    </button>
+                    <button onclick="closeMobileMenu()" class="profile-menu-item w-full">
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        <span>Ayarlar</span>
+                    </button>
+                    <div class="mt-2 pt-2 border-t border-white/5">
+                        <button onclick="handleLogout(); closeMobileMenu();" class="profile-menu-item danger w-full">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"/></svg>
+                            <span>Çıkış Yap</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- ==================== HERO SECTION ==================== -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center hero-grid overflow-hidden">
+    <section id="hero" class="relative min-h-screen flex items-center justify-center hero-grid overflow-hidden" style="background-color: var(--bg-primary);">
         <!-- Background Effects -->
         <div class="absolute inset-0">
             <div class="absolute top-1/4 left-1/4 w-72 md:w-96 h-72 md:h-96 bg-neon-purple/[0.07] rounded-full blur-[120px] animate-float"></div>
@@ -509,7 +796,7 @@
     </section>
 
     <!-- ==================== VIDEOS SECTION ==================== -->
-    <section id="videos" class="relative py-32 overflow-hidden">
+    <section id="videos" class="relative py-32 overflow-hidden" style="background-color: var(--bg-primary);">
         <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
         <div class="absolute top-1/2 right-0 w-72 h-72 bg-neon-purple/5 rounded-full blur-[100px]"></div>
 
@@ -537,7 +824,7 @@
     </section>
 
     <!-- ==================== LEADERBOARD SECTION ==================== -->
-    <section id="leaderboard" class="relative py-32 overflow-hidden">
+    <section id="leaderboard" class="relative py-32 overflow-hidden" style="background-color: var(--bg-primary);">
         <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent"></div>
         <div class="absolute top-1/3 left-0 w-72 h-72 bg-neon-cyan/5 rounded-full blur-[100px]"></div>
         <div class="absolute bottom-1/3 right-0 w-72 h-72 bg-neon-purple/5 rounded-full blur-[100px]"></div>
@@ -596,7 +883,7 @@
     </section>
 
     <!-- ==================== FOOTER ==================== -->
-    <footer class="relative py-10 md:py-16 border-t border-white/[0.03]">
+    <footer class="relative py-10 md:py-16 border-t border-white/[0.03]" style="background-color: var(--bg-primary);">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex items-center gap-2.5">
@@ -963,7 +1250,7 @@
                         </div>
                         <!-- Info -->
                         <div class="p-5">
-                            <h3 class="text-sm font-medium text-gray-200 leading-snug mb-3 line-clamp-2 group-hover:text-white transition-colors duration-300">${video.title}</h3>
+                            <h3 class="text-sm font-medium leading-snug mb-3 line-clamp-2 transition-colors duration-300" style="color: var(--text-primary);">${video.title}</h3>
                             <div class="flex items-center justify-between text-xs text-gray-500">
                                 <div class="flex items-center gap-1.5">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
@@ -1006,7 +1293,7 @@
                         <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-br ${first.color} mx-auto flex items-center justify-center text-xl sm:text-2xl font-black text-white mb-4 ring-4 ring-yellow-400/20 group-hover:ring-yellow-400/40 transition-all duration-300">
                             ${first.avatar}
                         </div>
-                        <h3 class="text-lg font-bold text-white mb-1">${first.name}</h3>
+                        <h3 class="text-lg font-bold mb-1" style="color: var(--text-primary);">${first.name}</h3>
                         <div class="text-xl sm:text-2xl font-black gradient-text mb-4">${first.score.toLocaleString()}</div>
                         <div class="flex items-center justify-center gap-4 text-xs text-gray-400">
                             <span class="flex items-center gap-1">
@@ -1029,7 +1316,7 @@
                         <div class="w-16 h-16 rounded-2xl bg-gradient-to-br ${second.color} mx-auto flex items-center justify-center text-xl font-black text-white mb-4 ring-4 ring-gray-400/20 group-hover:ring-gray-400/40 transition-all duration-300">
                             ${second.avatar}
                         </div>
-                        <h3 class="text-base font-bold text-white mb-1">${second.name}</h3>
+                        <h3 class="text-base font-bold mb-1" style="color: var(--text-primary);">${second.name}</h3>
                         <div class="text-xl font-black text-gray-300 mb-4">${second.score.toLocaleString()}</div>
                         <div class="flex items-center justify-center gap-4 text-xs text-gray-400">
                             <span>${second.wins}W</span>
@@ -1048,7 +1335,7 @@
                         <div class="w-16 h-16 rounded-2xl bg-gradient-to-br ${third.color} mx-auto flex items-center justify-center text-xl font-black text-white mb-4 ring-4 ring-amber-600/20 group-hover:ring-amber-600/40 transition-all duration-300">
                             ${third.avatar}
                         </div>
-                        <h3 class="text-base font-bold text-white mb-1">${third.name}</h3>
+                        <h3 class="text-base font-bold mb-1" style="color: var(--text-primary);">${third.name}</h3>
                         <div class="text-xl font-black text-amber-400 mb-4">${third.score.toLocaleString()}</div>
                         <div class="flex items-center justify-center gap-4 text-xs text-gray-400">
                             <span>${third.wins}W</span>
@@ -1079,7 +1366,7 @@
                         <div class="w-9 h-9 rounded-xl bg-gradient-to-br ${player.color} flex items-center justify-center text-xs font-bold text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                             ${player.avatar}
                         </div>
-                        <span class="text-sm font-semibold text-white truncate">${player.name}</span>
+                        <span class="text-sm font-semibold truncate" style="color: var(--text-primary);">${player.name}</span>
                     </div>
                     <div class="flex items-center gap-4 sm:col-span-6 sm:grid sm:grid-cols-3">
                         <span class="hidden sm:block text-center text-sm text-gray-400">${player.wins}</span>
@@ -1212,6 +1499,168 @@
         }
 
 
+        // ============ THEME SYSTEM ============
+
+        let currentTheme = localStorage.getItem('pavlov-theme') || 'dark';
+        let themePanelOpen = false;
+        let profileDropdownOpen = false;
+
+        function setTheme(theme) {
+            currentTheme = theme;
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            localStorage.setItem('pavlov-theme', theme);
+
+            // Update active state
+            document.querySelectorAll('.theme-option').forEach(opt => {
+                opt.classList.remove('active');
+                if (opt.dataset.themeOption === theme) {
+                    opt.classList.add('active');
+                }
+            });
+        }
+
+        function toggleThemePanel() {
+            themePanelOpen = !themePanelOpen;
+            const panel = document.getElementById('theme-panel');
+            if (themePanelOpen) {
+                panel.classList.remove('hidden');
+                closeProfileDropdown();
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+
+        function initTheme() {
+            setTheme(currentTheme);
+        }
+
+
+        // ============ USER PROFILE SYSTEM ============
+
+        let isLoggedIn = false;
+        let currentUser = null;
+
+        const mockUserData = {
+            username: 'pavlov_pro',
+            email: 'kullanici@email.com',
+            avatar: 'PV',
+            level: 24,
+            xp: 2450,
+            xpNext: 3000,
+            totalScore: 2450,
+            matches: 147,
+            winRate: 68,
+            rank: 42,
+            achievements: 3
+        };
+
+        function handleLogin(username, email) {
+            isLoggedIn = true;
+            currentUser = { ...mockUserData };
+            if (username) {
+                currentUser.username = username;
+                currentUser.avatar = username.substring(0, 2).toUpperCase();
+            }
+            if (email) currentUser.email = email;
+            updateUIForLoggedIn();
+            localStorage.setItem('pavlov-logged-in', 'true');
+            localStorage.setItem('pavlov-user', JSON.stringify(currentUser));
+        }
+
+        function handleLogout() {
+            isLoggedIn = false;
+            currentUser = null;
+            updateUIForLoggedOut();
+            closeProfileDropdown();
+            localStorage.removeItem('pavlov-logged-in');
+            localStorage.removeItem('pavlov-user');
+        }
+
+        function updateUIForLoggedIn() {
+            if (!currentUser) return;
+
+            // Desktop
+            document.getElementById('nav-auth-buttons').classList.add('hidden');
+            document.getElementById('nav-profile').classList.remove('hidden');
+            document.getElementById('nav-avatar').textContent = currentUser.avatar;
+            document.getElementById('nav-username').textContent = currentUser.username;
+            document.getElementById('dropdown-avatar').textContent = currentUser.avatar;
+            document.getElementById('dropdown-username').textContent = currentUser.username;
+            document.getElementById('dropdown-email').textContent = currentUser.email;
+
+            // Mobile
+            document.getElementById('mobile-auth-buttons').classList.add('hidden');
+            document.getElementById('mobile-profile-section').classList.remove('hidden');
+            document.getElementById('mobile-avatar').textContent = currentUser.avatar;
+            document.getElementById('mobile-username').textContent = currentUser.username;
+        }
+
+        function updateUIForLoggedOut() {
+            // Desktop
+            document.getElementById('nav-auth-buttons').classList.remove('hidden');
+            document.getElementById('nav-auth-buttons').classList.add('sm:flex');
+            document.getElementById('nav-profile').classList.add('hidden');
+
+            // Mobile
+            document.getElementById('mobile-auth-buttons').classList.remove('hidden');
+            document.getElementById('mobile-profile-section').classList.add('hidden');
+        }
+
+        function toggleProfileDropdown() {
+            profileDropdownOpen = !profileDropdownOpen;
+            const dropdown = document.getElementById('profile-dropdown');
+            const chevron = document.getElementById('profile-chevron');
+            if (profileDropdownOpen) {
+                dropdown.classList.remove('hidden');
+                chevron.style.transform = 'rotate(180deg)';
+                themePanelOpen = false;
+                document.getElementById('theme-panel').classList.add('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+                chevron.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function closeProfileDropdown() {
+            profileDropdownOpen = false;
+            const dropdown = document.getElementById('profile-dropdown');
+            const chevron = document.getElementById('profile-chevron');
+            if (dropdown) dropdown.classList.add('hidden');
+            if (chevron) chevron.style.transform = 'rotate(0deg)';
+        }
+
+        // Close dropdowns on outside click
+        document.addEventListener('click', (e) => {
+            const themeBtn = document.getElementById('theme-toggle-btn');
+            const themePanel = document.getElementById('theme-panel');
+            const profileBtn = document.getElementById('profile-btn');
+            const profileDrop = document.getElementById('profile-dropdown');
+
+            if (themePanelOpen && themePanel && !themePanel.contains(e.target) && !themeBtn.contains(e.target)) {
+                themePanelOpen = false;
+                themePanel.classList.add('hidden');
+            }
+
+            if (profileDropdownOpen && profileDrop && !profileDrop.contains(e.target) && profileBtn && !profileBtn.contains(e.target)) {
+                closeProfileDropdown();
+            }
+        });
+
+        function checkSavedLogin() {
+            const savedLogin = localStorage.getItem('pavlov-logged-in');
+            const savedUser = localStorage.getItem('pavlov-user');
+            if (savedLogin === 'true' && savedUser) {
+                isLoggedIn = true;
+                currentUser = JSON.parse(savedUser);
+                updateUIForLoggedIn();
+            }
+        }
+
+
         // ============ AUTH MODAL ============
 
         let authMode = 'login'; // 'login', 'signup', 'forgot'
@@ -1302,9 +1751,11 @@
         }
 
         function resetAuthForm() {
-            const inputs = document.querySelectorAll('#auth-modal input');
+            const inputs = document.querySelectorAll('#auth-modal input[type="email"], #auth-modal input[type="password"], #auth-modal input[type="text"]');
             inputs.forEach(i => { i.value = ''; i.classList.remove('auth-input-error'); });
             document.querySelectorAll('#auth-modal .error-msg').forEach(e => e.remove());
+            const termsCheckbox = document.getElementById('auth-terms');
+            if (termsCheckbox) termsCheckbox.checked = false;
             authMode = 'login';
             updateAuthUI();
 
@@ -1397,6 +1848,13 @@
             document.getElementById('auth-subtitle').classList.add('hidden');
             document.getElementById('forgot-password-link')?.classList.add('hidden');
 
+            // Trigger login
+            if (authMode !== 'forgot') {
+                const email = document.getElementById('auth-email')?.value?.trim() || 'kullanici@email.com';
+                const username = document.getElementById('auth-username')?.value?.trim() || '';
+                handleLogin(username, email);
+            }
+
             // Auto close
             setTimeout(() => {
                 closeAuthModal();
@@ -1406,7 +1864,12 @@
         }
 
         function mockOAuth(provider) {
-            simulateLoading(() => showAuthSuccess(`${provider} ile Bağlandı!`, `${provider} hesabınla giriş yapıldı.`));
+            const oauthUser = provider === 'Discord' ? 'discord_user' : 'google_user';
+            const oauthEmail = provider === 'Discord' ? 'user@discord.com' : 'user@gmail.com';
+            simulateLoading(() => {
+                handleLogin(oauthUser, oauthEmail);
+                showAuthSuccess(`${provider} ile Bağlandı!`, `${provider} hesabınla giriş yapıldı.`);
+            });
         }
 
         function shakeModal() {
@@ -1493,6 +1956,12 @@
         // ============ INITIALIZATION ============
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Init theme
+            initTheme();
+
+            // Check saved login
+            checkSavedLogin();
+
             // Create particles
             createParticles();
 
